@@ -50,7 +50,7 @@
 
      #額外應用 (嘗試刪除資料)
 
-     echo "<h2>刪除資料</h2>";
+    echo "<h2>刪除資料</h2>";
     $sql_cmd4 = "DELETE FROM `dept` WHERE `id` = '9' ";
     $pdo->exec($sql_cmd4);
     echo "<hr>";

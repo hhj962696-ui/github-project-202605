@@ -191,11 +191,11 @@
         <form action="api-login.php" method="POST">
 
             <div class="form-group">
-                <label for="account">會員帳號</label>
+                <label for="cdkey">會員帳號</label>
                 <input 
                     type="text" 
-                    id="account" 
-                    name="account" 
+                    id="cdkey" 
+                    name="cdkey" 
                     placeholder="請輸入帳號或電子郵件" 
                     required
                     autofocus
