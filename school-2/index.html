@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
     <style>
         /* ==========================================
            CSS DESIGN SYSTEM & THEMES
@@ -16,7 +19,7 @@
         :root {
             /* Fonts */
             --font-primary: 'Outfit', 'Noto Sans TC', sans-serif;
-            
+
             /* Light Theme Tokens */
             --bg-base: #f8fafc;
             --bg-surface: #ffffff;
@@ -24,27 +27,27 @@
             --bg-accent: #6366f1;
             --bg-accent-hover: #4f46e5;
             --bg-accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            
+
             --border-color: #e2e8f0;
             --border-hover: #cbd5e1;
-            
+
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --text-on-accent: #ffffff;
-            
+
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
             --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 20px 50px -12px rgba(99, 102, 241, 0.08);
-            
+
             --glow-color: rgba(99, 102, 241, 0.15);
-            
+
             /* Status Colors */
             --color-success: #10b981;
             --color-warning: #f59e0b;
             --color-danger: #ef4444;
             --color-info: #06b6d4;
-            
+
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --border-radius-lg: 16px;
             --border-radius-md: 12px;
@@ -59,21 +62,21 @@
             --bg-accent: #6366f1;
             --bg-accent-hover: #4f46e5;
             --bg-accent-gradient: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            
+
             --border-color: rgba(255, 255, 255, 0.06);
             --border-hover: rgba(255, 255, 255, 0.12);
-            
+
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
             --text-on-accent: #ffffff;
-            
+
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
             --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
             --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
-            
+
             --glow-color: rgba(99, 102, 241, 0.3);
-            
+
             /* Status Colors */
             --color-success: #34d399;
             --color-warning: #fbbf24;
@@ -106,7 +109,7 @@
             width: 500px;
             height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-color) 0%, rgba(99,102,241,0) 70%);
+            background: radial-gradient(circle, var(--glow-color) 0%, rgba(99, 102, 241, 0) 70%);
             top: -100px;
             right: -100px;
             z-index: 0;
@@ -120,7 +123,7 @@
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0) 70%);
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, rgba(236, 72, 153, 0) 70%);
             bottom: -50px;
             left: -50px;
             z-index: 0;
@@ -434,8 +437,13 @@
             gap: 4px;
         }
 
-        .trend-up { color: var(--color-success); }
-        .trend-down { color: var(--color-danger); }
+        .trend-up {
+            color: var(--color-success);
+        }
+
+        .trend-down {
+            color: var(--color-danger);
+        }
 
         .stat-icon {
             width: 56px;
@@ -514,7 +522,8 @@
             cursor: pointer;
         }
 
-        .input-select:focus, .input-select:hover {
+        .input-select:focus,
+        .input-select:hover {
             border-color: var(--bg-accent);
         }
 
@@ -970,10 +979,21 @@
         }
 
         /* Course category badges */
-        .slot-it { border-left: 4px solid var(--color-info); }
-        .slot-science { border-left: 4px solid var(--color-success); }
-        .slot-art { border-left: 4px solid #a855f7; }
-        .slot-math { border-left: 4px solid var(--color-warning); }
+        .slot-it {
+            border-left: 4px solid var(--color-info);
+        }
+
+        .slot-science {
+            border-left: 4px solid var(--color-success);
+        }
+
+        .slot-art {
+            border-left: 4px solid #a855f7;
+        }
+
+        .slot-math {
+            border-left: 4px solid var(--color-warning);
+        }
 
         /* ==========================================
            ANIMATIONS & SYSTEM DECORATIONS
@@ -983,6 +1003,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -990,8 +1011,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .empty-state {
@@ -1031,18 +1057,22 @@
             .sidebar {
                 transform: translateX(-100%);
             }
+
             .sidebar.active {
                 transform: translateX(0);
             }
+
             .main-container {
                 margin-left: 0;
                 padding: 20px;
             }
+
             .topbar {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 20px;
             }
+
             .topbar-actions {
                 width: 100%;
                 justify-content: space-between;
@@ -1050,6 +1080,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Ambient glowing shapes -->
     <div class="ambient-glow"></div>
@@ -1110,7 +1141,7 @@
                 <h1 id="pageTitleHeading">主控儀表板</h1>
                 <p id="pageTitleSub">智慧分析、即時學籍統計與教務管理整合系統</p>
             </div>
-            
+
             <div class="topbar-actions">
                 <div class="theme-toggle" onclick="toggleTheme()" title="切換深淺色主題">🌗</div>
                 <button id="mainActionBtn" class="btn btn-primary" onclick="openAddStudentModal()">
@@ -1165,7 +1196,8 @@
                 <div class="panel-card">
                     <div class="panel-header">
                         <h2 class="panel-title">🏆 班級成績榮譽榜 (前五名)</h2>
-                        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="switchSection('grades')">查看全部</button>
+                        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;"
+                            onclick="switchSection('grades')">查看全部</button>
                     </div>
                     <div class="table-container">
                         <table>
@@ -1190,14 +1222,21 @@
                     <div class="panel-header" style="margin-bottom: 0;">
                         <h2 class="panel-title">🔔 最新教務通告</h2>
                     </div>
-                    
+
                     <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="background-color: var(--bg-base); padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid var(--color-success);">
-                            <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">本週五第 4 節期中評量登錄截止</h4>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">請各科任教師於 5/22 下午 5 點前至學業成績單系統登錄完成。</p>
+                        <div
+                            style="background-color: var(--bg-base); padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid var(--color-success);">
+                            <h4
+                                style="font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">
+                                本週五第 4 節期中評量登錄截止</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">請各科任教師於 5/22 下午 5 點前至學業成績單系統登錄完成。
+                            </p>
                         </div>
-                        <div style="background-color: var(--bg-base); padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid var(--bg-accent);">
-                            <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">跨領域智慧科技微課程發表</h4>
+                        <div
+                            style="background-color: var(--bg-base); padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid var(--bg-accent);">
+                            <h4
+                                style="font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">
+                                跨領域智慧科技微課程發表</h4>
                             <p style="font-size: 0.8rem; color: var(--text-muted);">資訊管理系將於下週二上午舉辦發表會，歡迎師生同仁到場共襄盛舉。</p>
                         </div>
                     </div>
@@ -1218,7 +1257,7 @@
                         <option value="102">一年二班</option>
                         <option value="103">一年三班</option>
                     </select>
-                    
+
                     <select id="deptSelector" class="input-select" onchange="filterStudents()">
                         <option value="all">📂 所有科系</option>
                         <option value="資管系">資訊管理系</option>
@@ -1229,7 +1268,8 @@
 
                 <div class="search-wrapper">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="studentSearchInput" class="input-search" placeholder="搜尋學生姓名或學號..." oninput="filterStudents()">
+                    <input type="text" id="studentSearchInput" class="input-search" placeholder="搜尋學生姓名或學號..."
+                        oninput="filterStudents()">
                 </div>
             </div>
 
@@ -1254,7 +1294,7 @@
                         💡 提示：點擊成績輸入框，輸入後直接按下 Enter 或點擊外部可即時儲存！
                     </span>
                 </div>
-                
+
                 <div style="font-weight: 700; font-size: 0.95rem; color: var(--bg-accent);">
                     教務成績登錄模式
                 </div>
@@ -1375,10 +1415,10 @@
                 <h3 class="modal-title" id="modalHeading">➕ 新增學籍檔案</h3>
                 <span class="modal-close" onclick="closeStudentModal()">&times;</span>
             </div>
-            
+
             <form id="studentForm" onsubmit="saveStudent(event)">
                 <input type="hidden" id="editStudentIdx">
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="formName">學生姓名 *</label>
@@ -1393,7 +1433,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="formClass">班級選擇 *</label>
-                        <select id="formClass" class="input-select" style="background-color: var(--bg-base); height: 46px;">
+                        <select id="formClass" class="input-select"
+                            style="background-color: var(--bg-base); height: 46px;">
                             <option value="101">一年一班</option>
                             <option value="102">一年二班</option>
                             <option value="103">一年三班</option>
@@ -1401,7 +1442,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="formDept">科系科別 *</label>
-                        <select id="formDept" class="input-select" style="background-color: var(--bg-base); height: 46px;">
+                        <select id="formDept" class="input-select"
+                            style="background-color: var(--bg-base); height: 46px;">
                             <option value="資管系">資訊管理系</option>
                             <option value="資工系">資訊工程系</option>
                             <option value="電機系">電機工程系</option>
@@ -1412,7 +1454,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="formSeat">座號 *</label>
-                        <input type="number" id="formSeat" class="form-input" min="1" max="100" required placeholder="如：12">
+                        <input type="number" id="formSeat" class="form-input" min="1" max="100" required
+                            placeholder="如：12">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="formTel">連絡電話</label>
@@ -1456,12 +1499,12 @@
             { name: "陳雅婷", school_num: "911003", class_code: "101", dept: "資工系", seat_num: 3, tel: "0933-444555", addr: "新北市板橋區文化路 120 號", birthday: "2007-08-03", score: 76 },
             { name: "王詠晴", school_num: "911004", class_code: "101", dept: "資管系", seat_num: 4, tel: "0955-666777", addr: "台北市內湖區成功路 88 號", birthday: "2007-11-15", score: 62 },
             { name: "賴冠延", school_num: "911005", class_code: "101", dept: "電機系", seat_num: 5, tel: "0966-777888", addr: "新北市中和區景平路 204 號", birthday: "2008-01-30", score: 48 },
-            
+
             // 一年二班
             { name: "郭欣妤", school_num: "911021", class_code: "102", dept: "資工系", seat_num: 1, tel: "0977-888999", addr: "桃園市中壢區新生路 302 號", birthday: "2007-09-14", score: 95 },
             { name: "謝家豪", school_num: "911022", class_code: "102", dept: "電機系", seat_num: 2, tel: "0988-999000", addr: "新竹市東區光復路 150 號", birthday: "2007-12-05", score: 81 },
             { name: "黃雅婷", school_num: "911023", class_code: "102", dept: "資管系", seat_num: 3, tel: "0910-123456", addr: "台中市西屯區台灣大道 99 號", birthday: "2007-03-22", score: 73 },
-            
+
             // 一年三班
             { name: "趙宜蓁", school_num: "911041", class_code: "103", dept: "資管系", seat_num: 1, tel: "0920-234567", addr: "彰化縣彰化市中山路二段 45 號", birthday: "2007-05-18", score: 58 },
             { name: "張建宏", school_num: "911042", class_code: "103", dept: "資工系", seat_num: 2, tel: "0930-345678", addr: "台南市東區大學路 1 號", birthday: "2007-10-10", score: 90 },
@@ -1603,7 +1646,7 @@
                 // Get original index of student
                 const origIdx = students.findIndex(x => x.school_num === s.school_num);
                 const classLabel = s.class_code === '101' ? '一年一班' : s.class_code === '102' ? '一年二班' : '一年三班';
-                
+
                 const card = document.createElement('div');
                 card.className = 'student-card';
                 card.style.animationDelay = (idx * 0.04) + 's';
@@ -1662,12 +1705,12 @@
             tbody.innerHTML = '';
 
             const classStudents = students.filter(s => s.class_code === classCode)
-                                          .sort((a, b) => a.seat_num - b.seat_num);
+                .sort((a, b) => a.seat_num - b.seat_num);
 
             classStudents.forEach(s => {
                 const origIdx = students.findIndex(x => x.school_num === s.school_num);
                 const score = s.score !== undefined && s.score !== null ? s.score : '';
-                
+
                 let scoreClass = 'score-poor';
                 let ratingText = '不及格';
                 if (score !== '') {
@@ -1798,7 +1841,7 @@
 
             saveToStorage();
             closeStudentModal();
-            
+
             // Refresh current active sections
             updateDashboardStats();
             filterStudents();
@@ -1809,7 +1852,7 @@
             if (confirm(`⚠️ 確定要刪除學生 [${students[idx].name}] 的所有學籍與成績檔案嗎？此動作無法復原。`)) {
                 students.splice(idx, 1);
                 saveToStorage();
-                
+
                 updateDashboardStats();
                 filterStudents();
                 loadGrades();
@@ -1817,4 +1860,5 @@
         }
     </script>
 </body>
+
 </html>
