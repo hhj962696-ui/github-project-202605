@@ -856,7 +856,7 @@ try {
 
                 <div id="classError" style="display: none;"></div>
 
-                <div id="classEmpty" class="empty-state" style="">
+                <div id="classEmpty" class="empty-state">
                     <div class="empty-icon">📚</div>
                     <p class="empty-text">請從上方下拉選單選擇一個班級</p>
                     <p style="color: var(--light-text); font-size: 13px;">選擇後將顯示全班同學的姓名、住址與電話</p>
