@@ -232,6 +232,15 @@
             text-align: center;
             font-weight: bold;
         }
+        .fail-message {
+            background-color: #ff759f;
+            color: #a10a11;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
 
         .info-text {
             text-align: center;
@@ -286,6 +295,11 @@
         <div class="success-message" id="successMessage">
             登入成功！
         </div>
+        <?php if(isset($_GET['err'])):;?>
+        <div class="fail-message" id="failMessage">
+            帳號或密碼錯誤！
+        </div>
+        <?php endif;?>
 
         <form id="loginForm" action="api_login.php" method="post">
             <div class="form-group">
