@@ -1,4 +1,5 @@
 <h2><?= $_GET['code']; ?>班級學生列表</h2>
+<button>新增學生</button>
 <style>
     .student-list{
         border-collapse: collapse;
@@ -28,6 +29,7 @@ echo "<tr>";
 echo "<td>學號</td>";
 echo "<td>姓名</td>";
 echo "<td>生日</td>";
+echo "<td>操作</td>";
 echo "</tr>";
 foreach($students as $student){
     //$sql="select * from `students` where `school_num`='{$num['school_num']}'";
@@ -36,6 +38,10 @@ echo "<tr>";
 echo "<td>{$student['school_num']}</td>";
 echo "<td>{$student['name']}</td>";
 echo "<td>{$student['birthday']}</td>";
+echo "<td>";
+echo "<a  href=''>編輯</a>";
+echo "<a  href=''>刪除</a>";
+echo "</td>";
 echo "</tr>";
 }
 
