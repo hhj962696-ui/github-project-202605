@@ -151,8 +151,9 @@
 
         /* 主要內容區域 */
         .main-content {
+            width:75%;
             max-width: 1200px;
-            margin: 60px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
@@ -339,14 +340,32 @@
                 翠園高中
             </a>
             <ul class="nav-links">
-                <li><a href="#about">關於我們</a></li>
-                <li><a href="#news">最新消息</a></li>
-                <li><a href="#contact">聯絡方式</a></li>
+                <li><a href="?inc=classrooms">班級</a></li>
+                <li><a href="?inc=students">學生</a></li>
+                <li><a href="?inc=subjects">科別</a></li>
             </ul>
             <div class="nav-buttons">
                 <a href="logout.php" class="btn-login">登出</a>
             </div>
         </div>
     </nav>
+    <main class='main-content'>
+
+    <?php
+    $inc=(isset($_GET['inc']))?$_GET['inc']:'classrooms';
+    $file="./include/".$inc.".php";
+
+    if(file_exists($file)){
+        include $file;
+    }else{
+        include "./include/classrooms.php";
+    }
+    
+    ?>
+
+
+    </main>
+
+
 </body>
 </html>
