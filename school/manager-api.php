@@ -50,7 +50,6 @@ switch ($action) {
  */
 function getProfile($pdo, $cdkey) {
     try {
-        // 查詢 member 表
         $sql = "SELECT m.id, m.cdkey, m.email, m.tel, m.birth 
                 FROM member m 
                 WHERE m.cdkey = ?";
@@ -64,20 +63,22 @@ function getProfile($pdo, $cdkey) {
             return;
         }
         
-        // 根據 cdkey 查詢學生信息（假設 students 表中有對應記錄）
-        // 這裡需要確定如何將 member 和 students 關聯
-        // 可能需要在 students 表中增加 member_id 或 cdkey 字段
-        $studentData = getStudentByMember($pdo, $memberData['id']);
+        $schoolNum = resolveSchoolNum($pdo, $cdkey);
+        $studentData = [];
+
+        if ($schoolNum) {
+            $studentData = getStudentData($pdo, $schoolNum);
+        }
         
         $result = [
             'cdkey' => $memberData['cdkey'],
             'email' => $memberData['email'] ?? '-',
             'tel' => $memberData['tel'] ?? '-',
             'birth' => $memberData['birth'] ?? '-',
-            'school_num' => $studentData['school_num'] ?? '-',
+            'school_num' => $schoolNum ?? '-',
             'class_name' => $studentData['class_name'] ?? '-',
-            'dept_name' => $studentData['dept_name'] ?? '-',
-            'enroll_year' => $studentData['enroll_year'] ?? '-'
+            'dept_name' => $studentData['dept_name'] ?? ($studentData['dept'] ?? '-'),
+            'enroll_year' => $studentData['year'] ?? '-'
         ];
         
         echo json_encode(['success' => true, 'data' => $result]);
@@ -91,47 +92,50 @@ function getProfile($pdo, $cdkey) {
  */
 function getClassInfo($pdo, $cdkey) {
     try {
-        // 獲取第一個班級作為示例（實際應該通過會員與學生的關聯查詢）
-        $sql = "SELECT DISTINCT c.id, c.class_id, c.class_name, c.grade_year
-                FROM classes c
+        $schoolNum = resolveSchoolNum($pdo, $cdkey);
+        if (!$schoolNum) {
+            echo json_encode(['success' => false, 'message' => '無法關聯學生學號']);
+            return;
+        }
+
+        $sql = "SELECT c.code, c.name, c.tutor
+                FROM class_student cs
+                JOIN classes c ON cs.class_code = c.code
+                WHERE cs.school_num = ?
                 LIMIT 1";
         
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$schoolNum]);
         $classInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$classInfo || empty($classInfo['id'])) {
-            echo json_encode(['success' => true, 'data' => [
-                'class_name' => '未分配',
-                'members' => [],
-                'teacher' => '未安排'
-            ]]);
+
+        if (!$classInfo) {
+            echo json_encode(['success' => false, 'message' => '找不到班級資訊']);
             return;
         }
-        
-        // 獲取班級成員
-        $membersSql = "SELECT s.id, s.school_num, s.name, 
-                              CASE 
-                                WHEN s.uni_id LIKE '%M' THEN 'M'
-                                WHEN s.uni_id LIKE '%F' THEN 'F'
-                                ELSE 'U'
-                              END as gender,
-                              s.birthday as birth, 
-                              s.tel as phone
+
+        $membersSql = "SELECT s.school_num, s.name, s.birthday, s.tel, s.dept
                        FROM students s
-                       LEFT JOIN class_student cs ON s.school_num = cs.school_num
-                       WHERE cs.class_id = ? OR 1=1
+                       JOIN class_student cs ON s.school_num = cs.school_num
+                       WHERE cs.class_code = ?
                        ORDER BY s.school_num ASC
-                       LIMIT 30";
+                       LIMIT 50";
         
         $stmt = $pdo->prepare($membersSql);
-        $stmt->execute([$classInfo['class_id']]);
+        $stmt->execute([$classInfo['code']]);
         $members = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $result = [
-            'class_name' => $classInfo['class_name'] ?? '-',
-            'teacher' => '班導師',
-            'members' => $members
+            'class_name' => $classInfo['name'],
+            'teacher' => $classInfo['tutor'],
+            'members' => array_map(function($member) {
+                return [
+                    'school_num' => $member['school_num'],
+                    'name' => $member['name'],
+                    'gender' => '-',
+                    'birth' => $member['birthday'] ?? '-',
+                    'phone' => $member['tel'] ?? '-'
+                ];
+            }, $members)
         ];
         
         echo json_encode(['success' => true, 'data' => $result]);
@@ -145,62 +149,42 @@ function getClassInfo($pdo, $cdkey) {
  */
 function getScores($pdo, $cdkey) {
     try {
-        // 獲取第一個學生的成績作為示例
-        $sql = "SELECT DISTINCT s.school_num 
-                FROM students s
-                LIMIT 1";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $studentInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$studentInfo) {
-            echo json_encode(['success' => true, 'data' => [
-                'average' => 0,
-                'highest' => 0,
-                'lowest' => 0,
-                'courses' => []
-            ]]);
+        $schoolNum = resolveSchoolNum($pdo, $cdkey);
+        if (!$schoolNum) {
+            echo json_encode(['success' => false, 'message' => '無法關聯學生學號']);
             return;
         }
-        
-        $schoolNum = $studentInfo['school_num'];
-        
-        // 查詢成績信息
-        $scoresSql = "SELECT ss.school_num, 
-                            ss.course_code, 
-                            ss.course_name, 
-                            ss.credit, 
-                            ss.score
+
+        $scoresSql = "SELECT ss.school_num, ss.score
                       FROM student_scores ss
-                      WHERE ss.school_num = ?
-                      ORDER BY ss.course_code ASC";
+                      WHERE ss.school_num = ?";
         
         $stmt = $pdo->prepare($scoresSql);
         $stmt->execute([$schoolNum]);
-        $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // 計算統計數據
-        $totalScore = 0;
-        $totalCourses = count($courses);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $courses = [];
+        $average = 0;
         $highest = 0;
-        $lowest = 100;
-        
-        if ($totalCourses > 0) {
-            foreach ($courses as $course) {
-                $score = (float)$course['score'];
-                $totalScore += $score;
-                $highest = max($highest, $score);
-                $lowest = min($lowest, $score);
-            }
+        $lowest = 0;
+
+        if ($record) {
+            $score = (int)$record['score'];
+            $courses[] = [
+                'course_code' => 'TOTAL',
+                'course_name' => '總成績',
+                'credit' => '-',
+                'score' => $score
+            ];
+            $average = $score;
+            $highest = $score;
+            $lowest = $score;
         }
-        
-        $average = $totalCourses > 0 ? $totalScore / $totalCourses : 0;
-        
+
         $result = [
-            'average' => round($average, 1),
-            'highest' => (int)$highest,
-            'lowest' => $totalCourses > 0 ? (int)$lowest : 0,
+            'average' => $average,
+            'highest' => $highest,
+            'lowest' => $lowest,
             'courses' => $courses
         ];
         
@@ -210,13 +194,37 @@ function getScores($pdo, $cdkey) {
     }
 }
 
-/**
- * 根據 member ID 獲取學生信息
- */
-function getStudentByMember($pdo, $memberId) {
-    // 由於設計中可能沒有直接的 member_id 關聯，
-    // 這裡先返回空數組，實際需要根據業務邏輯調整
-    return [];
+function resolveSchoolNum($pdo, $cdkey) {
+    if (is_numeric($cdkey)) {
+        $sql = "SELECT school_num FROM students WHERE school_num = ? LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$cdkey]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return $row['school_num'];
+        }
+    }
+
+    $sql = "SELECT m.cdkey, s.school_num 
+            FROM member m
+            JOIN students s ON m.cdkey = s.school_num
+            WHERE m.cdkey = ?
+            LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$cdkey]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row['school_num'] ?? null;
+}
+
+function getStudentData($pdo, $schoolNum) {
+    $sql = "SELECT s.school_num, s.name, s.birthday, s.tel, s.dept, cs.class_code, cs.year 
+            FROM students s
+            LEFT JOIN class_student cs ON s.school_num = cs.school_num
+            WHERE s.school_num = ?
+            LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$schoolNum]);
+    return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
 }
 
 ?>
