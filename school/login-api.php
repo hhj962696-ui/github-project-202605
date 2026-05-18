@@ -64,6 +64,7 @@ try {
         ]);
     } else {
         echo json_encode(['success' => false, 'message' => '帳號或密碼錯誤']);
+        header("location:login.php?err=1");
     }
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => '資料庫查詢失敗']);
