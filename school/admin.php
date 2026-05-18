@@ -185,7 +185,9 @@
             gap: 30px;
             margin-bottom: 60px;
         }
-
+        .cards-container a {
+            text-decoration:none;
+        }
         .card {
             background-color: #f1f8f5;
             padding: 30px;
@@ -194,7 +196,7 @@
             transition: all 0.3s ease;
             border-left: 5px solid #ff9800;
         }
-
+        
         .card:hover {
             transform: translateY(-8px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
