@@ -2,9 +2,9 @@
 $dsn="mysql:host=localhost;charset=utf8;dbname=super";
 $pdo=new PDO($dsn,'root','');
 
-echo "<pre>";
+/* echo "<pre>";
 print_r($_POST);
-echo "</pre>";
+echo "</pre>"; */
 
 $sql="INSERT INTO `members` (`account`,`password`,`email`,`tel`,`birthday`)
             VALUES ('{$_POST['account']}',
@@ -14,6 +14,6 @@ $sql="INSERT INTO `members` (`account`,`password`,`email`,`tel`,`birthday`)
                     '{$_POST['birthday']}')";
 
 $pdo->exec($sql);
-header("location:02-register.php");
+header("location:login.php");
 
 ?>

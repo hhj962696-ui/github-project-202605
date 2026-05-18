@@ -15,10 +15,10 @@
             background-color: #c8e6c9;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
-            display: flex;
+/*             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            align-items: center; */
+            /* padding: 20px; */
         }
 
         .container {
@@ -28,6 +28,98 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             width: 100%;
+            margin: 40px auto;
+        }
+
+        /* 頂部導航欄 */
+        .navbar {
+            background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffc107;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-login, .btn-register {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-login {
+            background-color: #ffc107;
+            color: #2e7d32;
+        }
+
+        .btn-login:hover {
+            background-color: #ffb300;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-register {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-register:hover {
+            background-color: #f57c00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
         }
 
         .form-header {
@@ -151,7 +243,24 @@
     </style>
 </head>
 <body>
-
+    <!-- 頂部導航欄 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span>🏫</span>
+                翠園高中
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">關於我們</a></li>
+                <li><a href="#news">最新消息</a></li>
+                <li><a href="#contact">聯絡方式</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.php" class="btn-login">登入</a>
+                <a href="register.php" class="btn-register">註冊</a>
+            </div>
+        </div>
+    </nav>
    <div class="container">
         <div class="form-header">
             <h1>會員註冊</h1>

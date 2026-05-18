@@ -19,8 +19,10 @@ $result=$pdo->query($sql)->fetchColumn();
         } */
         if($result==1){
             echo "登入成功";
+            header("location:admin.php");
         }else{
             echo "登入失敗";
+            header("location:login.php?err=1");
 
         }
     ?>
