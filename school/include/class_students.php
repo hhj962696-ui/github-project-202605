@@ -132,7 +132,7 @@ a.del-btn {
 }
 </style>
 <h2><?= $_GET['code']; ?>班級學生列表</h2>
-<a href="?inc=add_student" class='add-btn'>新增學生</a>
+<a href="?inc=add_student&code=<?= $_GET['code']; ?>" class='add-btn'>新增學生</a>
 
 <?php 
 //從class_student 中找到班級學生的學號

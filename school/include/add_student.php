@@ -100,13 +100,15 @@
             </div>
             <div class="form-group">
                 <label for="class">所屬班級</label>
-                <select id="class" name="class" >
+                <select id="class" name="class_code" >
                     <option value="">請選擇分配的班級</option>
+
                     <?php 
                         $classes=$pdo->query("SELECT * FROM `classes`")->fetchAll();
+                        $is_code=(isset($_GET['code']))?$_GET['code']:'';
                         foreach($classes as $class):
                     ?>
-                    <option value="<?= $class['code']; ?>"><?= $class['name']; ?></option>
+                    <option value="<?= $class['code']; ?>" <?= ($is_code==$class['code'])?'selected':''; ?> ><?= $class['name']; ?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -167,8 +169,8 @@
             </div>
 
             <div class="form-group">
-                <label for="parent">父母</label>
-                <input type="text" id="parent" name="parent" >
+                <label for="parents">父母</label>
+                <input type="text" id="parents" name="parents" >
             </div>
 
             <div class="form-group">
