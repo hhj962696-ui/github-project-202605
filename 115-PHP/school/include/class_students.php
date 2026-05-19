@@ -116,21 +116,47 @@ a.del-btn {
     border-radius: 20px;
     background: lightcoral;
 }
-.add-btn{
-    padding:10px;
-    background:lightgreen;
-    margin:12px;
-    border:3px solid green;
-    border-radius:20px;
-    font-size:18px;
-
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #a5d6a7;
 }
-.add-btn:hover{
-    box-shadow:3px 6px 15px;
+.list-header h2 {
+    color: #2e7d32;
+    margin: 0;
+    font-size: 26px;
+}
+.add-btn {
+    padding: 10px 24px;
+    background-color: #ff9800;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.add-btn:hover {
+    background-color: #f57c00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 152, 0, 0.3);
 }
 </style>
-<h2><?= $_GET['code']; ?>班級學生列表</h2>
-<a href="?inc=add_student" class='add-btn' >新增學生</a>
+<div class="list-header">
+    <h2><?= htmlspecialchars($_GET['code']); ?>班級學生列表</h2>
+    <a href="?inc=add_student&code=<?= htmlspecialchars($_GET['code']); ?>" class='add-btn'>
+        <span>✨</span> 新增學生
+    </a>
+</div>
 
 <?php 
 //從class_student 中找到班級學生的學號
