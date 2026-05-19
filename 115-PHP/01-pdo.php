@@ -8,7 +8,7 @@
 <body>
 <h1>PDO連線</h1>    
 <?php
-$dsn="mysql:host=localhost;charset=utf8;dbname=mypage";
+$dsn="mysql:host=localhost;charset=utf8;dbname=school";
 $pdo=new PDO($dsn,'root','');
 
 $sql="SELECT * FROM `dept` ";

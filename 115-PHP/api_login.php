@@ -1,5 +1,5 @@
 <?php 
-$dsn="mysql:host=localhost;charset=utf8;dbname=mypage";
+$dsn="mysql:host=localhost;charset=utf8;dbname=super";
 $pdo=new PDO($dsn,'root','');
 
 $sql="select count(*) from `members` where `account`='{$_POST['account']}' AND `password`='{$_POST['password']}'";

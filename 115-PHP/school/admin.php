@@ -354,6 +354,7 @@
     <main class='main-content'>
 
     <?php
+    
     $inc=(isset($_GET['inc']))?$_GET['inc']:'classrooms';
     $file="./include/".$inc.".php";
 
