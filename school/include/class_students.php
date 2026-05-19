@@ -4,6 +4,7 @@
     display:flex;
     flex-wrap:wrap;
     gap:20px;
+    margin:16px 0;
 }
 
 
@@ -116,25 +117,41 @@ a.del-btn {
     border-radius: 20px;
     background: lightcoral;
 }
+.add-btn{
+    padding:8px 24px;
+    background:lightskyblue;
+    margin:20px;
+    border:1px solid lightseagreen;
+    border-radius:24px;
+    font-size:20px;
+}
+.add-btn:hover{
+    box-shadow:3px 3px 15px #666;
+    transform:translateY(-5px);
+}
 </style>
 <h2><?= $_GET['code']; ?>班級學生列表</h2>
-<button>新增學生</button>
+<button class='add-btn'>新增學生</button>
 
 <?php 
 //從class_student 中找到班級學生的學號
 include "db_conn.php";
 //$sql="select * from `class_student` where `class_code`='{$_GET['code']}'";
 $sql="select `students`.`school_num`,
-             `name`,
+             `students`.`name`,
+             `dept`.`name` as 'dept_name',
              `addr`,
-             `dept`,
              `uni_id`,
-             `graduate_at`,
+             `graduate_school`.`name` as 'graduate_school',
              `birthday` 
         from `class_student`,
-             `students` 
+             `students`,
+             `dept`,
+             `graduate_school`
        where `class_student`.`class_code`='{$_GET['code']}' AND 
-             `class_student`.`school_num`=`students`.`school_num`";
+             `class_student`.`school_num`=`students`.`school_num` AND
+             `dept`.`id`=`students`.`dept` AND
+             `graduate_school`.`id`=`students`.`graduate_at`";
 //$nums=$pdo->query($sql)->fetchAll();
 $students=$pdo->query($sql)->fetchAll();
 
@@ -171,11 +188,11 @@ foreach($students as $student):?>
             </div>
             <div class="info-row">
                 <span class="label">科別</span>
-                <span class="value"><?php $student['dept']; ?></span>
+                <span class="value"><?= $student['dept_name']; ?></span>
             </div>
             <div class="info-row">
                 <span class="label">畢業國中</span>
-                <span class="value"><?= $student['graduate_at']; ?></span>
+                <span class="value"><?= $student['graduate_school']; ?></span>
             </div>
             <div class="btn-row">
                 <a class="edit-btn" href="">編輯</a>
