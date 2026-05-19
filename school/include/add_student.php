@@ -90,47 +90,94 @@
 <body>
     <div class="container">
         <h1>新增學生</h1>
-        <form method="POST" action="api_add_student.php">
+        <form method="POST" action="./include/api_add_student.php">
             <div class="form-group">
-                <label for="school_num">學號 <span style="color: red;"></span></label>
+                <label for="school_num">學號</label>
                 <?php 
                 $defaut_num=$pdo->query("select max(`school_num`) from `students`")->fetchColumn()+1;
                 ?>
                 <input type="number" id="school_num" name="school_num" value="<?= $defaut_num; ?>">
             </div>
-
             <div class="form-group">
-                <label for="name">姓名 <span style="color: red;"></span></label>
+                <label for="class">所屬班級</label>
+                <select id="class" name="class" >
+                    <option value="">請選擇分配的班級</option>
+                    <?php 
+                        $classes=$pdo->query("SELECT * FROM `classes`")->fetchAll();
+                        foreach($classes as $class):
+                    ?>
+                    <option value="<?= $class['code']; ?>"><?= $class['name']; ?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seat_num">座號</label>
+                <?php 
+                $defaut_num=$pdo->query("select max(`seat_num`) from `class_student` where `class_code`=''")->fetchColumn()+1;
+                ?>
+                <input type="number" id="seat_num" name="seat_num" value="<?= $defaut_num; ?>">
+            </div>
+            <script>
+                // 監聽班級選擇變更
+                document.getElementById('class').addEventListener('change', function() {
+                    const classCode = this.value;
+                    
+                    // 如果沒有選擇班級，清空座號
+                    if (!classCode) {
+                        document.getElementById('seat_num').value = '';
+                        return;
+                    }
+                    
+                    // 發送 GET 請求到後端取得最大座號
+                    fetch(`./include/get_max_seat_num.php?code=${encodeURIComponent(classCode)}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.text();
+                        })
+                        .then(data => {
+                            // 將取得的座號填入輸入框
+                            document.getElementById('seat_num').value = data.trim();
+                        })
+                        .catch(error => {
+                            console.error('錯誤:', error);
+                            alert('取得座號失敗，請稍後重試');
+                        });
+                });
+            </script>
+            <div class="form-group">
+                <label for="name">姓名</label>
                 <input type="text" id="name" name="name" >
             </div>
 
             <div class="form-group">
-                <label for="birthday">生日 <span style="color: red;"></span></label>
+                <label for="birthday">生日</label>
                 <input type="date" id="birthday" name="birthday" >
             </div>
 
             <div class="form-group">
-                <label for="uni_id">身份證字號 <span style="color: red;"></span></label>
+                <label for="uni_id">身份證字號</label>
                 <input type="text" id="uni_id" name="uni_id" placeholder="例如：A123456789" >
             </div>
 
             <div class="form-group">
-                <label for="addr">地址 <span style="color: red;"></span></label>
+                <label for="addr">地址</label>
                 <input type="text" id="addr" name="addr" >
             </div>
 
             <div class="form-group">
-                <label for="parent">父母 <span style="color: red;"></span></label>
+                <label for="parent">父母</label>
                 <input type="text" id="parent" name="parent" >
             </div>
 
             <div class="form-group">
-                <label for="tel">電話 <span style="color: red;"></span></label>
+                <label for="tel">電話</label>
                 <input type="text" id="tel" name="tel" placeholder="例如：0912345678" >
             </div>
 
             <div class="form-group">
-                <label for="dept">科別 <span style="color: red;"></span></label>
+                <label for="dept">科別</label>
                 <select id="dept" name="dept" >
                     <option value="">請選擇科別</option>
                     <?php 
@@ -143,7 +190,7 @@
             </div>
 
             <div class="form-group">
-                <label for="graduate_at">畢業國中 <span style="color: red;"></span></label>
+                <label for="graduate_at">畢業國中</label>
                 <select id="graduate_at" name="graduate_at" >
                     <option value="">請選擇畢業國中</option>
                     <?php 
@@ -156,7 +203,7 @@
             </div>
 
             <div class="form-group">
-                <label for="status_code">畢業狀態 <span style="color: red;"></span></label>
+                <label for="status_code">畢業狀態</label>
                 <select id="status_code" name="status_code" >
                     <option value="">請選擇畢業狀態</option>
                     <?php 
