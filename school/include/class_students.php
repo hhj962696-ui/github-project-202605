@@ -144,7 +144,8 @@
 //從class_student 中找到班級學生的學號
 include "db_conn.php";
 //$sql="select * from `class_student` where `class_code`='{$_GET['code']}'";
-$sql = "select `students`.`school_num`,
+$sql = "select 
+            `students`.`school_num`,
              `students`.`name`,
              `dept`.`name` as 'dept_name',
              `addr`,
@@ -202,8 +203,9 @@ foreach ($students as $student): ?>
                 <span class="value"><?= $student['graduate_school']; ?></span>
             </div>
             <div class="btn-row">
-                <a class="edit-btn" href="">編輯</a>
-                <a class="del-btn" href="">刪除</a>
+                <a class="edit-btn" href="?inc=edit_student&num=<?= $student['school_num']; ?>">編輯</a>
+                <!-- <a class="edit-btn" href="?inc=./include/edit_student.php&id=<?= $student['school_num'] ?>?>">編輯</a> -->
+                <a class="del-btn" href="?inc=del_student&num=<?= $student['school_num']; ?>">刪除</a>
             </div>
         </div>
     </div>
