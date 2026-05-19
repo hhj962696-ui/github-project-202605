@@ -118,6 +118,7 @@ a.del-btn {
     background: lightcoral;
 }
 .add-btn{
+    display:inline-block;
     padding:8px 24px;
     background:lightskyblue;
     margin:20px;
@@ -131,7 +132,7 @@ a.del-btn {
 }
 </style>
 <h2><?= $_GET['code']; ?>班級學生列表</h2>
-<button class='add-btn'>新增學生</button>
+<a href="?inc=add_student" class='add-btn'>新增學生</a>
 
 <?php 
 //從class_student 中找到班級學生的學號
