@@ -270,24 +270,39 @@ try {
                 
                 <!-- 學號 (school_num) -> input number (auto-filled) -->
                 <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const classSelect = document.getElementById('class_code');
-                    const schoolNumInput = document.getElementById('school_num');
-                    if (classSelect && schoolNumInput) {
-                        classSelect.addEventListener('change', function () {
-                            const code = this.value;
-                            if (!code) return;
-                            fetch(`api_get_next_school_num.php?class_code=${encodeURIComponent(code)}`)
-                                .then(res => res.json())
-                                .then(data => {
-                                    if (data.next_school_num) {
-                                        schoolNumInput.value = data.next_school_num;
-                                    }
-                                })
-                                .catch(err => console.error('Error fetching next school number:', err));
-                        });
+                <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const classSelect = document.getElementById('class_code');
+    const schoolNumInput = document.getElementById('school_num');
+    const infoDiv = document.getElementById('schoolNumInfo');
+    if (classSelect && schoolNumInput && infoDiv) {
+        classSelect.addEventListener('change', function () {
+            const code = this.value;
+            if (!code) return;
+            fetch(`api_get_next_school_num.php?class_code=${encodeURIComponent(code)}`)
+                .then(res => res.json())
+                .then(data => {
+                    // 填入建議的完整學號
+                    if (data.suggested_school_num) {
+                        schoolNumInput.value = '';
+                        schoolNumInput.placeholder = data.suggested_school_num;
                     }
+                    // 顯示目前最大學號與對應學生，及建議的後三碼
+                    if (data.max_school_num) {
+                        const name = data.max_student_name ? data.max_student_name : '無';
+                        infoDiv.textContent = `目前最大學號：${data.max_school_num}（${name}），建議新增學號：${data.suggested_school_num}（尾碼 ${data.next_suffix}）`;
+                    } else {
+                        infoDiv.textContent = `此班級尚無學號，建議使用號碼：${data.suggested_school_num}`;
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching next school number:', err);
+                    infoDiv.textContent = '取得學號資訊失敗';
                 });
+        });
+    }
+});
+</script>
                 </script>
                 <div class="add-student-group">
                     <label for="school_num" class="add-student-label">學號<span class="required-star">*</span></label>
