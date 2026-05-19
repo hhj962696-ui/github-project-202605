@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +16,12 @@
             background-color: #c8e6c9;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
-/*             display: flex;
+            /*             display: flex;
             justify-content: center;
             align-items: center; */
             /* padding: 20px; */
         }
+
         /* 頂部導航欄 */
         .navbar {
             background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
@@ -77,7 +79,8 @@
             gap: 12px;
         }
 
-        .btn-login, .btn-register {
+        .btn-login,
+        .btn-register {
             padding: 10px 20px;
             border: none;
             border-radius: 6px;
@@ -232,6 +235,7 @@
             text-align: center;
             font-weight: bold;
         }
+
         .fail-message {
             background-color: #ff759f;
             color: #a10a11;
@@ -267,8 +271,9 @@
         }
     </style>
 </head>
+
 <body>
-        <!-- 頂部導航欄 -->
+    <!-- 頂部導航欄 -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
@@ -286,6 +291,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container">
         <div class="form-header">
             <h1>會員登入</h1>
@@ -295,33 +301,31 @@
         <div class="success-message" id="successMessage">
             登入成功！
         </div>
-        <?php if(isset($_GET['err'])):;?>
-        <div class="fail-message" id="failMessage">
-            帳號或密碼錯誤！
-        </div>
-        <?php endif;?>
+        <?php if (isset($_GET['err'])):; ?>
+            <div class="fail-message" id="failMessage">
+                帳號或密碼錯誤！
+            </div>
+        <?php endif; ?>
 
         <form id="loginForm" action="api_login.php" method="post">
             <div class="form-group">
                 <label for="account">帳號 *</label>
-                <input 
-                    type="text" 
-                    id="account" 
-                    name="account" 
-                    placeholder="請輸入帳號" 
-                    required
-                >
+                <input
+                    type="text"
+                    id="account"
+                    name="account"
+                    placeholder="請輸入帳號"
+                    required>
             </div>
 
             <div class="form-group">
                 <label for="password">密碼 *</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    placeholder="請輸入密碼" 
-                    required
-                >
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="請輸入密碼"
+                    required>
             </div>
 
             <div class="form-actions">
@@ -339,4 +343,5 @@
         </div>
     </div>
 </body>
+
 </html>

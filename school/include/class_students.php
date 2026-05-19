@@ -1,144 +1,150 @@
 <style>
-/* 整個列表 */
-.student-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-    margin:16px 0;
-}
+    /* 整個列表 */
+    .student-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 16px 0;
+    }
 
 
-/* 卡片 */
-.student-card{
-    width:240px;
-    background:#ffffff;
-    border-radius:16px;
-    padding:16px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    /* 卡片 */
+    .student-card {
+        width: 240px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 
-    position:relative;
+        position: relative;
 
-    transition:0.3s;
-}
-
-
-/* 滑鼠效果 */
-.student-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
+        transition: 0.3s;
+    }
 
 
-/* 學號 */
-.student-id{
-    position:absolute;
-    top:15px;
-    right:15px;
-
-    background:#6c63ff;
-    color:white;
-
-    padding:5px 12px;
-    border-radius:30px;
-
-    font-size:14px;
-}
+    /* 滑鼠效果 */
+    .student-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
 
 
-/* 大頭照 */
-.student-photo{
-    text-align:center;
-    margin-bottom:15px;
-}
+    /* 學號 */
+    .student-id {
+        position: absolute;
+        top: 15px;
+        right: 15px;
 
-.student-photo img{
-    width:96px;
-    height:96px;
-    border-radius:50%;
-    object-fit:cover;
-    border:5px solid #f2f2f2;
-}
+        background: #6c63ff;
+        color: white;
 
+        padding: 5px 12px;
+        border-radius: 30px;
 
-/* 姓名 */
-.student-name{
-    text-align:center;
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:16px;
-}
+        font-size: 14px;
+    }
 
 
-/* 資訊區 */
-.student-info{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
+    /* 大頭照 */
+    .student-photo {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .student-photo img {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #f2f2f2;
+    }
 
 
-/* 每一列 */
-.info-row{
-    display:flex;
-}
+    /* 姓名 */
+    .student-name {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
 
 
-/* 標題 */
-.label{
-    width:76px;
-    color:#666;
-    font-weight:bold;
-}
+    /* 資訊區 */
+    .student-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
 
 
-/* 值 */
-.value{
-    flex:1;
-    color:#333;
-}
-.btn-row{
-    display:flex;
-    justify-content: space-evenly;
-    padding:4px 16px;
-}
-a.edit-btn {
-    padding: 4px 16px;
-    border: 1px solid #eee;
-    border-radius: 20px;
-    background: lightgreen;
-}
-a.edit-btn:hover,a.del-btn:hover{
-    padding:4px 24px;
-}
+    /* 每一列 */
+    .info-row {
+        display: flex;
+    }
 
-a.del-btn {
-    padding: 4px 16px;
-    border: 1px solid #eee;
-    border-radius: 20px;
-    background: lightcoral;
-}
-.add-btn{
-    display:inline-block;
-    padding:8px 24px;
-    background:lightskyblue;
-    margin:20px;
-    border:1px solid lightseagreen;
-    border-radius:24px;
-    font-size:20px;
-}
-.add-btn:hover{
-    box-shadow:3px 3px 15px #666;
-    transform:translateY(-5px);
-}
+
+    /* 標題 */
+    .label {
+        width: 76px;
+        color: #666;
+        font-weight: bold;
+    }
+
+
+    /* 值 */
+    .value {
+        flex: 1;
+        color: #333;
+    }
+
+    .btn-row {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 4px 16px;
+    }
+
+    a.edit-btn {
+        padding: 4px 16px;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        background: lightgreen;
+    }
+
+    a.edit-btn:hover,
+    a.del-btn:hover {
+        padding: 4px 24px;
+    }
+
+    a.del-btn {
+        padding: 4px 16px;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        background: lightcoral;
+    }
+
+    .add-btn {
+        display: inline-block;
+        padding: 8px 24px;
+        background: lightskyblue;
+        margin: 20px;
+        border: 1px solid lightseagreen;
+        border-radius: 24px;
+        font-size: 20px;
+    }
+
+    .add-btn:hover {
+        box-shadow: 3px 3px 15px #666;
+        transform: translateY(-5px);
+    }
 </style>
 <h2><?= $_GET['code']; ?>班級學生列表</h2>
 <a href="?inc=add_student&code=<?= $_GET['code']; ?>" class='add-btn'>新增學生</a>
 
-<?php 
+<?php
 //從class_student 中找到班級學生的學號
 include "db_conn.php";
 //$sql="select * from `class_student` where `class_code`='{$_GET['code']}'";
-$sql="select `students`.`school_num`,
+$sql = "select `students`.`school_num`,
              `students`.`name`,
              `dept`.`name` as 'dept_name',
              `addr`,
@@ -154,10 +160,10 @@ $sql="select `students`.`school_num`,
              `dept`.`id`=`students`.`dept` AND
              `graduate_school`.`id`=`students`.`graduate_at`";
 //$nums=$pdo->query($sql)->fetchAll();
-$students=$pdo->query($sql)->fetchAll();
+$students = $pdo->query($sql)->fetchAll();
 
 echo "<div class='student-list'>";
-foreach($students as $student):?>
+foreach ($students as $student): ?>
     <!-- 單一卡片 -->
     <div class="student-card">
         <!-- 學號 -->
@@ -166,11 +172,11 @@ foreach($students as $student):?>
         </div>
         <!-- 大頭照 -->
         <div class="student-photo">
-            <?php if(isset($student['header'])):;?>
-            <img src="img/<?= $student['header']; ?>">
-            <?php else :;?>
-            <img src="img/<?= (mb_substr($student['uni_id'],1,1)==1)?'header_default_boy.jpg':'header_default_girl.jpg'; ?>">
-            <?php endif;?>
+            <?php if (isset($student['header'])):; ?>
+                <img src="img/<?= $student['header']; ?>">
+            <?php else :; ?>
+                <img src="img/<?= (mb_substr($student['uni_id'], 1, 1) == 1) ? 'header_default_boy.jpg' : 'header_default_girl.jpg'; ?>">
+            <?php endif; ?>
         </div>
         <!-- 姓名 -->
         <div class="student-name">
@@ -185,7 +191,7 @@ foreach($students as $student):?>
             </div>
             <div class="info-row">
                 <span class="label">地址</span>
-                <span class="value"><?= mb_substr($student['addr'],0,3); ?></span>
+                <span class="value"><?= mb_substr($student['addr'], 0, 3); ?></span>
             </div>
             <div class="info-row">
                 <span class="label">科別</span>
@@ -202,8 +208,5 @@ foreach($students as $student):?>
         </div>
     </div>
 
-    <?php endforeach;?>
+<?php endforeach; ?>
 </div>
-
-
-
