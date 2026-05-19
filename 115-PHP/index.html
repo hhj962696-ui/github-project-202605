@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP + MYSQL練習</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .course-list {
+            list-style: none;
+        }
+
+        .course-list li {
+            margin-bottom: 15px;
+        }
+
+        .course-list a {
+            display: block;
+            padding: 20px 25px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-left: 5px solid #667eea;
+        }
+
+        .course-list a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(10px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            border-left-color: #764ba2;
+        }
+
+        .course-list a:active {
+            transform: translateX(8px);
+        }
+
+        .course-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .course-list a:hover .course-number {
+            background: white;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 PHP + MYSQL 學習</h1>
+            <p class="subtitle">程式設計課程學習紀錄</p>
+            <p class="date">📅 2026 年 5 月 18 日</p>
+        </div>
+
+        <ul class="course-list">
+            <li>
+                <a href="01-pdo.php">
+                    <span class="course-number">01</span>
+                    PDO連線
+                </a>
+            </li>
+            <li>
+                <a href="02-register.php">
+                    <span class="course-number">02</span>
+                    會員註冊
+                </a>
+            </li>
+            <li>
+                <a href="03-login.php">
+                    <span class="course-number">03</span>
+                    會員登入    
+                </a>
+            </li>
+            <li>
+                <a href="school/index.html">
+                    <span class="course-number">04</span>
+                    學生管理系統製作練習
+                </a>
+            </li>
+  
+
+        </ul>
+    </div>
+</body>
+</html>

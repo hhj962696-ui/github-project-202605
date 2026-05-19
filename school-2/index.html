@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFlow Pro | 頂級智慧校園管理系統</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================
+           CSS DESIGN SYSTEM & THEMES
+           ========================================== */
+        :root {
+            /* Fonts */
+            --font-primary: 'Outfit', 'Noto Sans TC', sans-serif;
+
+            /* Light Theme Tokens */
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f1f5f9;
+            --bg-accent: #6366f1;
+            --bg-accent-hover: #4f46e5;
+            --bg-accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --text-on-accent: #ffffff;
+
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 50px -12px rgba(99, 102, 241, 0.08);
+
+            --glow-color: rgba(99, 102, 241, 0.15);
+
+            /* Status Colors */
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-info: #06b6d4;
+
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-lg: 16px;
+            --border-radius-md: 12px;
+            --border-radius-sm: 8px;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Tokens (Premium Glassmorphism Vibe) */
+            --bg-base: #090d16;
+            --bg-surface: rgba(17, 24, 39, 0.7);
+            --bg-surface-hover: rgba(31, 41, 55, 0.8);
+            --bg-accent: #6366f1;
+            --bg-accent-hover: #4f46e5;
+            --bg-accent-gradient: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --text-on-accent: #ffffff;
+
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
+
+            --glow-color: rgba(99, 102, 241, 0.3);
+
+            /* Status Colors */
+            --color-success: #34d399;
+            --color-warning: #fbbf24;
+            --color-danger: #f87171;
+            --color-info: #22d3ee;
+        }
+
+        /* ==========================================
+           CORE STYLES
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-primary);
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Ambient Glow Backdrops (Dark Mode only) */
+        .ambient-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-color) 0%, rgba(99, 102, 241, 0) 70%);
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+            transition: var(--transition-smooth);
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, rgba(236, 72, 153, 0) 70%);
+            bottom: -50px;
+            left: -50px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* ==========================================
+           LAYOUT: SIDEBAR
+           ========================================== */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-surface);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid var(--border-color);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            transition: var(--transition-smooth);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-left: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-md);
+            background: var(--bg-accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            box-shadow: 0 8px 16px var(--glow-color);
+        }
+
+        .logo-text {
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: var(--bg-accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            width: 100%;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            border-radius: var(--border-radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-surface-hover);
+            color: var(--text-primary);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: var(--bg-accent-gradient);
+            color: var(--text-on-accent);
+            box-shadow: 0 10px 20px -5px var(--glow-color);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active .nav-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Sidebar Footer / Profile Info */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .profile-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================
+           LAYOUT: MAIN CONTENT AREA
+           ========================================== */
+        .main-container {
+            margin-left: 280px;
+            flex-grow: 1;
+            min-height: 100vh;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Header Bar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-title h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .welcome-title p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle Switch */
+        .theme-toggle {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--border-radius-md);
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-surface-hover);
+            transform: scale(1.05);
+            border-color: var(--border-hover);
+        }
+
+        /* Accent Action Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--bg-accent-gradient);
+            color: var(--text-on-accent);
+            box-shadow: 0 8px 20px -6px var(--glow-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -4px var(--glow-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        /* ==========================================
+           SECTION: DASHBOARD VIEW
+           ========================================== */
+        .content-section {
+            display: none;
+            animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Statistics Cards Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .stat-trend {
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-up {
+            color: var(--color-success);
+        }
+
+        .trend-down {
+            color: var(--color-danger);
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--border-radius-md);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--bg-accent);
+        }
+
+        /* Large Panels Dashboard Vibe */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .panel-card {
+            background-color: var(--bg-surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* ==========================================
+           SECTION: STUDENT DIRECTORY
+           ========================================== */
+        .filter-bar {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filters-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-select {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .input-select:focus,
+        .input-select:hover {
+            border-color: var(--bg-accent);
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 300px;
+        }
+
+        .input-search {
+            width: 100%;
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 11px 16px 11px 40px;
+            border-radius: var(--border-radius-md);
+            outline: none;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .input-search:focus {
+            border-color: var(--bg-accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Card Grid Layout */
+        .student-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .student-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .student-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--bg-accent);
+        }
+
+        .student-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .student-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--bg-accent-gradient);
+            color: white;
+            font-weight: 700;
+            font-size: 1.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+        }
+
+        .student-header-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .student-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .student-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .seat-badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--bg-accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .student-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            flex-grow: 1;
+        }
+
+        .student-detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.88rem;
+        }
+
+        .student-detail-icon {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .student-detail-label {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .student-detail-value {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .student-card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+
+        .card-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+            border: 1px solid transparent;
+            background: transparent;
+        }
+
+        .card-btn-edit {
+            background-color: rgba(99, 102, 241, 0.05);
+            color: var(--bg-accent);
+            border-color: rgba(99, 102, 241, 0.1);
+        }
+
+        .card-btn-edit:hover {
+            background-color: var(--bg-accent);
+            color: white;
+        }
+
+        .card-btn-delete {
+            background-color: rgba(239, 68, 68, 0.05);
+            color: var(--color-danger);
+            border-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .card-btn-delete:hover {
+            background-color: var(--color-danger);
+            color: white;
+        }
+
+        /* ==========================================
+           SECTION: GRADE CENTER (SPREADSHEET VIBE)
+           ========================================== */
+        .grades-container {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 16px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 16px 20px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        tr:hover td {
+            background-color: var(--bg-surface-hover);
+        }
+
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            font-size: 0.85rem;
+            min-width: 50px;
+        }
+
+        .score-excellent {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--color-success);
+        }
+
+        .score-good {
+            background-color: rgba(6, 182, 212, 0.15);
+            color: var(--color-info);
+        }
+
+        .score-average {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--color-warning);
+        }
+
+        .score-poor {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--color-danger);
+        }
+
+        /* Interactive inputs inside table cell */
+        .grade-input {
+            width: 70px;
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .grade-input:focus {
+            border-color: var(--bg-accent);
+            background-color: var(--bg-surface);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        /* ==========================================
+           MODAL DIALOG / DRAWER
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 520px;
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9) translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+
+        .modal-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: var(--border-radius-md);
+            outline: none;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus {
+            border-color: var(--bg-accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .modal-footer {
+            margin-top: 32px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* ==========================================
+           CLASS SETUP & TIMETABLE
+           ========================================== */
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+            gap: 12px;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+
+        .timetable-header {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .time-col {
+            font-weight: 700;
+            color: var(--text-muted);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .course-slot {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 14px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .course-slot:hover {
+            transform: translateY(-2px);
+            border-color: var(--bg-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .course-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .course-room {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Course category badges */
+        .slot-it {
+            border-left: 4px solid var(--color-info);
+        }
+
+        .slot-science {
+            border-left: 4px solid var(--color-success);
+        }
+
+        .slot-art {
+            border-left: 4px solid #a855f7;
+        }
+
+        .slot-math {
+            border-left: 4px solid var(--color-warning);
+        }
+
+        /* ==========================================
+           ANIMATIONS & SYSTEM DECORATIONS
+           ========================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .topbar-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ambient glowing shapes -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- ==========================================
+         SIDEBAR NAVIGATION
+         ========================================== -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-icon">E</div>
+            <div class="logo-text">EduFlow Pro</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" onclick="switchSection('dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span>主控儀表板</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchSection('students')">
+                    <span class="nav-icon">👥</span>
+                    <span>學籍檔案庫</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchSection('grades')">
+                    <span class="nav-icon">📝</span>
+                    <span>學業成績單</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchSection('timetable')">
+                    <span class="nav-icon">🏫</span>
+                    <span>智慧排課表</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="avatar">陳</div>
+            <div class="profile-info">
+                <span class="profile-name">陳建宏 老師</span>
+                <span class="profile-role">教務處管理員</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN CONTENT CONTAINER
+         ========================================== -->
+    <main class="main-container">
+        <!-- Top Bar Actions -->
+        <header class="topbar">
+            <div class="welcome-title">
+                <h1 id="pageTitleHeading">主控儀表板</h1>
+                <p id="pageTitleSub">智慧分析、即時學籍統計與教務管理整合系統</p>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="theme-toggle" onclick="toggleTheme()" title="切換深淺色主題">🌗</div>
+                <button id="mainActionBtn" class="btn btn-primary" onclick="openAddStudentModal()">
+                    <span>➕ 新增學籍檔案</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ==========================================
+             SECTION: DASHBOARD VIEW
+             ========================================== -->
+        <section id="section-dashboard" class="content-section active">
+            <!-- Stats overview cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">全校總學生數</span>
+                        <span class="stat-value" id="statTotalStudents">--</span>
+                        <span class="stat-trend trend-up">▲ 4 學生 (本學期)</span>
+                    </div>
+                    <div class="stat-icon">👥</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">班級平均成績</span>
+                        <span class="stat-value" id="statAverageScore">--</span>
+                        <span class="stat-trend trend-up">▲ 1.2% (本學期)</span>
+                    </div>
+                    <div class="stat-icon">📈</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">學期及格率</span>
+                        <span class="stat-value" id="statPassRate">--</span>
+                        <span class="stat-trend trend-up">▲ 0.8% (本期)</span>
+                    </div>
+                    <div class="stat-icon">🎓</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">本日值班教師</span>
+                        <span class="stat-value" style="font-size: 1.5rem; margin-top: 8px;">許麗華 老師</span>
+                        <span class="stat-trend" style="color: var(--text-muted);">資訊大樓 A302</span>
+                    </div>
+                    <div class="stat-icon">🏫</div>
+                </div>
+            </div>
+
+            <!-- Double Column layout -->
+            <div class="dashboard-layout">
+                <!-- Academic Stats Summary -->
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h2 class="panel-title">🏆 班級成績榮譽榜 (前五名)</h2>
+                        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;"
+                            onclick="switchSection('grades')">查看全部</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>名次</th>
+                                    <th>學號</th>
+                                    <th>姓名</th>
+                                    <th>科系</th>
+                                    <th>成績分數</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topStudentsTableBody">
+                                <!-- Top students loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Active notification list -->
+                <div class="panel-card" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="panel-header" style="margin-bottom: 0;">
+                        <h2 class="panel-title">🔔 最新教務通告</h2>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div
+                            style="background-color: var(--bg-base); padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid var(--color-success);">
+                            <h4
+                                style="font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">
+                                本週五第 4 節期中評量登錄截止</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">請各科任教師於 5/22 下午 5 點前至學業成績單系統登錄完成。
+                            </p>
+                        </div>
+                        <div
+                            style="background-color: var(--bg-base); padding: 16px; border-radius: var(--border-radius-md); border-left: 4px solid var(--bg-accent);">
+                            <h4
+                                style="font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary);">
+                                跨領域智慧科技微課程發表</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">資訊管理系將於下週二上午舉辦發表會，歡迎師生同仁到場共襄盛舉。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION: STUDENT DIRECTORY VIEW
+             ========================================== -->
+        <section id="section-students" class="content-section">
+            <!-- Selector & Filter controllers -->
+            <div class="filter-bar">
+                <div class="filters-group">
+                    <select id="classSelector" class="input-select" onchange="filterStudents()">
+                        <option value="all">🏫 所有班級</option>
+                        <option value="101">一年一班</option>
+                        <option value="102">一年二班</option>
+                        <option value="103">一年三班</option>
+                    </select>
+
+                    <select id="deptSelector" class="input-select" onchange="filterStudents()">
+                        <option value="all">📂 所有科系</option>
+                        <option value="資管系">資訊管理系</option>
+                        <option value="資工系">資訊工程系</option>
+                        <option value="電機系">電機工程系</option>
+                    </select>
+                </div>
+
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="studentSearchInput" class="input-search" placeholder="搜尋學生姓名或學號..."
+                        oninput="filterStudents()">
+                </div>
+            </div>
+
+            <!-- Dynamic grid of student cards -->
+            <div id="studentCardsGrid" class="student-cards-grid">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION: GRADE CENTER VIEW
+             ========================================== -->
+        <section id="section-grades" class="content-section">
+            <div class="filter-bar" style="margin-bottom: 30px;">
+                <div class="filters-group">
+                    <select id="gradeClassSelector" class="input-select" onchange="loadGrades()">
+                        <option value="101">一年一班 (49 人)</option>
+                        <option value="102">一年二班 (38 人)</option>
+                        <option value="103">一年三班 (57 人)</option>
+                    </select>
+                    <span style="font-size: 0.88rem; color: var(--text-muted); font-weight: 500;">
+                        💡 提示：點擊成績輸入框，輸入後直接按下 Enter 或點擊外部可即時儲存！
+                    </span>
+                </div>
+
+                <div style="font-weight: 700; font-size: 0.95rem; color: var(--bg-accent);">
+                    教務成績登錄模式
+                </div>
+            </div>
+
+            <div class="grades-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>座號</th>
+                            <th>學號</th>
+                            <th>學生姓名</th>
+                            <th>所屬系所</th>
+                            <th style="width: 150px; text-align: center;">登錄學期成績</th>
+                            <th>評等</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gradesTableBody">
+                        <!-- Loaded dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION: TIMETABLE VIEW
+             ========================================== -->
+        <section id="section-timetable" class="content-section">
+            <div class="timetable-grid">
+                <!-- Header row -->
+                <div class="timetable-header">節次/時間</div>
+                <div class="timetable-header">星期一</div>
+                <div class="timetable-header">星期二</div>
+                <div class="timetable-header">星期三</div>
+                <div class="timetable-header">星期四</div>
+                <div class="timetable-header">星期五</div>
+
+                <!-- Row 1 -->
+                <div class="time-col">第一節<br>09:00</div>
+                <div class="course-slot slot-math">
+                    <span class="course-name">高等微積分</span>
+                    <span class="course-room">A302 教室</span>
+                </div>
+                <div class="course-slot"></div>
+                <div class="course-slot slot-it">
+                    <span class="course-name">PHP & MySQL 基礎</span>
+                    <span class="course-room">電腦教室二</span>
+                </div>
+                <div class="course-slot"></div>
+                <div class="course-slot slot-science">
+                    <span class="course-name">普通物理學</span>
+                    <span class="course-room">C201 教室</span>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="time-col">第二節<br>10:10</div>
+                <div class="course-slot slot-math">
+                    <span class="course-name">線性代數</span>
+                    <span class="course-room">A302 教室</span>
+                </div>
+                <div class="course-slot slot-science">
+                    <span class="course-name">離散數學</span>
+                    <span class="course-room">B102 教室</span>
+                </div>
+                <div class="course-slot slot-it">
+                    <span class="course-name">資料庫安全系統</span>
+                    <span class="course-room">電腦教室二</span>
+                </div>
+                <div class="course-slot slot-science">
+                    <span class="course-name">工程數學</span>
+                    <span class="course-room">B204 教室</span>
+                </div>
+                <div class="course-slot"></div>
+
+                <!-- Row 3 -->
+                <div class="time-col">第三節<br>11:10</div>
+                <div class="course-slot"></div>
+                <div class="course-slot slot-science">
+                    <span class="course-name">離散數學演習</span>
+                    <span class="course-room">B102 教室</span>
+                </div>
+                <div class="course-slot"></div>
+                <div class="course-slot slot-science">
+                    <span class="course-name">物理實驗室</span>
+                    <span class="course-room">實驗樓 B1</span>
+                </div>
+                <div class="course-slot slot-art">
+                    <span class="course-name">美學與現代生活</span>
+                    <span class="course-room">音樂廳 A</span>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="time-col">第四節<br>13:30</div>
+                <div class="course-slot slot-it">
+                    <span class="course-name">智慧物聯網實務</span>
+                    <span class="course-room">IoT 實驗室</span>
+                </div>
+                <div class="course-slot slot-it">
+                    <span class="course-name">物件導向程式設計</span>
+                    <span class="course-room">資工大樓 B4</span>
+                </div>
+                <div class="course-slot"></div>
+                <div class="course-slot"></div>
+                <div class="course-slot slot-math">
+                    <span class="course-name">高等微積分</span>
+                    <span class="course-room">A302 教室</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================
+         MODAL: ADD/EDIT STUDENT FORM
+         ========================================== -->
+    <div id="studentModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalHeading">➕ 新增學籍檔案</h3>
+                <span class="modal-close" onclick="closeStudentModal()">&times;</span>
+            </div>
+
+            <form id="studentForm" onsubmit="saveStudent(event)">
+                <input type="hidden" id="editStudentIdx">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="formName">學生姓名 *</label>
+                        <input type="text" id="formName" class="form-input" required placeholder="例如：李曉明">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="formSchoolNum">學籍編號 (學號) *</label>
+                        <input type="text" id="formSchoolNum" class="form-input" required placeholder="例如：911024">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="formClass">班級選擇 *</label>
+                        <select id="formClass" class="input-select"
+                            style="background-color: var(--bg-base); height: 46px;">
+                            <option value="101">一年一班</option>
+                            <option value="102">一年二班</option>
+                            <option value="103">一年三班</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="formDept">科系科別 *</label>
+                        <select id="formDept" class="input-select"
+                            style="background-color: var(--bg-base); height: 46px;">
+                            <option value="資管系">資訊管理系</option>
+                            <option value="資工系">資訊工程系</option>
+                            <option value="電機系">電機工程系</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="formSeat">座號 *</label>
+                        <input type="number" id="formSeat" class="form-input" min="1" max="100" required
+                            placeholder="如：12">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="formTel">連絡電話</label>
+                        <input type="text" id="formTel" class="form-input" placeholder="例如：0912-345678">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="formAddr">通訊地址</label>
+                    <input type="text" id="formAddr" class="form-input" placeholder="例如：台北市信義路五段 1 號">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="formBirth">出生日期</label>
+                        <input type="date" id="formBirth" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="formScore">學期成績分</label>
+                        <input type="number" id="formScore" class="form-input" min="0" max="100" placeholder="如：85">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeStudentModal()">取消</button>
+                    <button type="submit" class="btn btn-primary">儲存檔案</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT APPLICATION LOGIC
+         ========================================== -->
+    <script>
+        // MOCK INITIAL STUDENT DATABASE
+        const initialStudents = [
+            // 一年一班
+            { name: "孫承翰", school_num: "911001", class_code: "101", dept: "資管系", seat_num: 1, tel: "0911-222333", addr: "基隆市信義區東信路 10 號", birthday: "2007-04-12", score: 92 },
+            { name: "林志偉", school_num: "911002", class_code: "101", dept: "資管系", seat_num: 2, tel: "0922-333444", addr: "台北市大安區忠孝東路 55 號", birthday: "2007-06-25", score: 85 },
+            { name: "陳雅婷", school_num: "911003", class_code: "101", dept: "資工系", seat_num: 3, tel: "0933-444555", addr: "新北市板橋區文化路 120 號", birthday: "2007-08-03", score: 76 },
+            { name: "王詠晴", school_num: "911004", class_code: "101", dept: "資管系", seat_num: 4, tel: "0955-666777", addr: "台北市內湖區成功路 88 號", birthday: "2007-11-15", score: 62 },
+            { name: "賴冠延", school_num: "911005", class_code: "101", dept: "電機系", seat_num: 5, tel: "0966-777888", addr: "新北市中和區景平路 204 號", birthday: "2008-01-30", score: 48 },
+
+            // 一年二班
+            { name: "郭欣妤", school_num: "911021", class_code: "102", dept: "資工系", seat_num: 1, tel: "0977-888999", addr: "桃園市中壢區新生路 302 號", birthday: "2007-09-14", score: 95 },
+            { name: "謝家豪", school_num: "911022", class_code: "102", dept: "電機系", seat_num: 2, tel: "0988-999000", addr: "新竹市東區光復路 150 號", birthday: "2007-12-05", score: 81 },
+            { name: "黃雅婷", school_num: "911023", class_code: "102", dept: "資管系", seat_num: 3, tel: "0910-123456", addr: "台中市西屯區台灣大道 99 號", birthday: "2007-03-22", score: 73 },
+
+            // 一年三班
+            { name: "趙宜蓁", school_num: "911041", class_code: "103", dept: "資管系", seat_num: 1, tel: "0920-234567", addr: "彰化縣彰化市中山路二段 45 號", birthday: "2007-05-18", score: 58 },
+            { name: "張建宏", school_num: "911042", class_code: "103", dept: "資工系", seat_num: 2, tel: "0930-345678", addr: "台南市東區大學路 1 號", birthday: "2007-10-10", score: 90 },
+            { name: "許麗華", school_num: "911043", class_code: "103", dept: "電機系", seat_num: 3, tel: "0940-456789", addr: "高雄市苓雅區五福一路 25 號", birthday: "2008-02-14", score: 88 }
+        ];
+
+        // Global State
+        let students = [];
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load from localStorage or set defaults
+            if (!localStorage.getItem('edu_students')) {
+                localStorage.setItem('edu_students', JSON.stringify(initialStudents));
+            }
+            students = JSON.parse(localStorage.getItem('edu_students'));
+
+            // Load view contents
+            updateDashboardStats();
+            filterStudents();
+            loadGrades();
+        });
+
+        // 1. DYNAMIC THEME TOGGLE
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', targetTheme);
+        }
+
+        // 2. SIDEBAR ROUTING SWITCH
+        function switchSection(sectionId) {
+            // Toggle active section UI
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`section-${sectionId}`).classList.add('active');
+
+            // Toggle sidebar active state
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Header titles update
+            const titleHead = document.getElementById('pageTitleHeading');
+            const titleSub = document.getElementById('pageTitleSub');
+            const actionBtn = document.getElementById('mainActionBtn');
+
+            if (sectionId === 'dashboard') {
+                titleHead.innerText = '主控儀表板';
+                titleSub.innerText = '智慧分析、即時學籍統計與教務管理整合系統';
+                actionBtn.style.display = 'inline-flex';
+                actionBtn.innerHTML = '<span>➕ 新增學籍檔案</span>';
+                actionBtn.setAttribute('onclick', 'openAddStudentModal()');
+                updateDashboardStats();
+            } else if (sectionId === 'students') {
+                titleHead.innerText = '學籍檔案庫';
+                titleSub.innerText = '視覺化卡片式學生通訊錄、檔案管理與科系篩選器';
+                actionBtn.style.display = 'inline-flex';
+                actionBtn.innerHTML = '<span>➕ 新增學籍檔案</span>';
+                actionBtn.setAttribute('onclick', 'openAddStudentModal()');
+                filterStudents();
+            } else if (sectionId === 'grades') {
+                titleHead.innerText = '學業成績單';
+                titleSub.innerText = '線上即時教務成績登錄系統，支援批次輸入與狀態統計';
+                actionBtn.style.display = 'none';
+                loadGrades();
+            } else if (sectionId === 'timetable') {
+                titleHead.innerText = '智慧排課表';
+                titleSub.innerText = '教師與班級每週課表視圖，快速設定並匯出課程時間';
+                actionBtn.style.display = 'none';
+            }
+        }
+
+        // 3. STATS CALCULATION & UPDATES
+        function updateDashboardStats() {
+            document.getElementById('statTotalStudents').textContent = students.length;
+
+            const scores = students.map(s => s.score).filter(s => s !== undefined && s !== null);
+            if (scores.length > 0) {
+                const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+                document.getElementById('statAverageScore').textContent = avg.toFixed(1) + ' 分';
+
+                const passCount = scores.filter(s => s >= 60).length;
+                const passRate = (passCount / scores.length) * 100;
+                document.getElementById('statPassRate').textContent = passRate.toFixed(1) + '%';
+            } else {
+                document.getElementById('statAverageScore').textContent = '無成績';
+                document.getElementById('statPassRate').textContent = '無成績';
+            }
+
+            // Top Students ranking load (top 5)
+            const top5 = [...students]
+                .filter(s => s.score !== undefined && s.score !== null)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 5);
+
+            const rankTbody = document.getElementById('topStudentsTableBody');
+            rankTbody.innerHTML = '';
+
+            top5.forEach((s, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><span class="score-badge ${idx < 3 ? 'score-excellent' : 'score-good'}">${idx + 1}</span></td>
+                    <td>${s.school_num}</td>
+                    <td><strong>${s.name}</strong></td>
+                    <td>${s.dept}</td>
+                    <td><span class="score-badge ${s.score >= 60 ? 'score-good' : 'score-poor'}">${s.score} 分</span></td>
+                `;
+                rankTbody.appendChild(tr);
+            });
+        }
+
+        // 4. FILTERED STUDENT CARD RENDERING
+        function filterStudents() {
+            const classFilter = document.getElementById('classSelector').value;
+            const deptFilter = document.getElementById('deptSelector').value;
+            const searchVal = document.getElementById('studentSearchInput').value.toLowerCase().trim();
+
+            const grid = document.getElementById('studentCardsGrid');
+            grid.innerHTML = '';
+
+            const filtered = students.filter(s => {
+                const matchClass = classFilter === 'all' || s.class_code === classFilter;
+                const matchDept = deptFilter === 'all' || s.dept === deptFilter;
+                const matchSearch = s.name.toLowerCase().includes(searchVal) || s.school_num.includes(searchVal);
+                return matchClass && matchDept && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">🔍</div>
+                        <p class="empty-text">找不到任何符合條件的學生</p>
+                        <p class="empty-desc">請調整篩選器或輸入其他關鍵字搜尋</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((s, idx) => {
+                // Get original index of student
+                const origIdx = students.findIndex(x => x.school_num === s.school_num);
+                const classLabel = s.class_code === '101' ? '一年一班' : s.class_code === '102' ? '一年二班' : '一年三班';
+
+                const card = document.createElement('div');
+                card.className = 'student-card';
+                card.style.animationDelay = (idx * 0.04) + 's';
+                card.innerHTML = `
+                    <div class="seat-badge">座號 ${s.seat_num}</div>
+                    <div class="student-card-header">
+                        <div class="student-avatar">${s.name.charAt(0)}</div>
+                        <div class="student-header-info">
+                            <div class="student-name">${s.name}</div>
+                            <div class="student-meta">${classLabel} | 學號 ${s.school_num}</div>
+                        </div>
+                    </div>
+                    <div class="student-card-body">
+                        <div class="student-detail-row">
+                            <span class="student-detail-icon">📍</span>
+                            <div>
+                                <div class="student-detail-label">通訊地址</div>
+                                <div class="student-detail-value">${s.addr || '-'}</div>
+                            </div>
+                        </div>
+                        <div class="student-detail-row">
+                            <span class="student-detail-icon">📞</span>
+                            <div>
+                                <div class="student-detail-label">電話</div>
+                                <div class="student-detail-value">${s.tel || '-'}</div>
+                            </div>
+                        </div>
+                        <div class="student-detail-row">
+                            <span class="student-detail-icon">🎂</span>
+                            <div>
+                                <div class="student-detail-label">生日</div>
+                                <div class="student-detail-value">${s.birthday || '-'}</div>
+                            </div>
+                        </div>
+                        <div class="student-detail-row">
+                            <span class="student-detail-icon">🎓</span>
+                            <div>
+                                <div class="student-detail-label">科系</div>
+                                <div class="student-detail-value">${s.dept || '-'}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="student-card-actions">
+                        <button class="card-btn card-btn-edit" onclick="openEditStudentModal(${origIdx})">編輯學籍</button>
+                        <button class="card-btn card-btn-delete" onclick="deleteStudent(${origIdx})">刪除檔案</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 5. GRADE CENTER RENDER
+        function loadGrades() {
+            const classCode = document.getElementById('gradeClassSelector').value;
+            const tbody = document.getElementById('gradesTableBody');
+            tbody.innerHTML = '';
+
+            const classStudents = students.filter(s => s.class_code === classCode)
+                .sort((a, b) => a.seat_num - b.seat_num);
+
+            classStudents.forEach(s => {
+                const origIdx = students.findIndex(x => x.school_num === s.school_num);
+                const score = s.score !== undefined && s.score !== null ? s.score : '';
+
+                let scoreClass = 'score-poor';
+                let ratingText = '不及格';
+                if (score !== '') {
+                    const num = parseInt(score);
+                    if (num >= 90) { scoreClass = 'score-excellent'; ratingText = '優秀'; }
+                    else if (num >= 80) { scoreClass = 'score-good'; ratingText = '良好'; }
+                    else if (num >= 60) { scoreClass = 'score-average'; ratingText = '及格'; }
+                } else {
+                    scoreClass = 'score-poor';
+                    ratingText = '未登錄';
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${s.seat_num}</td>
+                    <td>${s.school_num}</td>
+                    <td><strong>${s.name}</strong></td>
+                    <td>${s.dept}</td>
+                    <td style="text-align: center;">
+                        <input type="number" class="grade-input" min="0" max="100" value="${score}" 
+                               onchange="updateStudentScore(${origIdx}, this.value)" 
+                               placeholder="分">
+                    </td>
+                    <td><span id="badge-${origIdx}" class="score-badge ${scoreClass}">${ratingText}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Realtime score updates
+        function updateStudentScore(studentIdx, newScore) {
+            if (newScore === '') {
+                students[studentIdx].score = null;
+            } else {
+                students[studentIdx].score = parseInt(newScore);
+            }
+            saveToStorage();
+
+            // Dynamic badge rating update instantly without full redraw
+            const badge = document.getElementById(`badge-${studentIdx}`);
+            if (badge) {
+                const num = parseInt(newScore);
+                badge.className = 'score-badge';
+                if (newScore === '' || isNaN(num)) {
+                    badge.classList.add('score-poor');
+                    badge.innerText = '未登錄';
+                } else if (num >= 90) {
+                    badge.classList.add('score-excellent');
+                    badge.innerText = '優秀';
+                } else if (num >= 80) {
+                    badge.classList.add('score-good');
+                    badge.innerText = '良好';
+                } else if (num >= 60) {
+                    badge.classList.add('score-average');
+                    badge.innerText = '及格';
+                } else {
+                    badge.classList.add('score-poor');
+                    badge.innerText = '不及格';
+                }
+            }
+        }
+
+        // 6. SAVE TO STORAGE / SYNC
+        function saveToStorage() {
+            localStorage.setItem('edu_students', JSON.stringify(students));
+        }
+
+        // 7. FORM MODAL CONTROLLER
+        function openAddStudentModal() {
+            document.getElementById('modalHeading').innerText = '➕ 新增學籍檔案';
+            document.getElementById('studentForm').reset();
+            document.getElementById('editStudentIdx').value = '';
+            document.getElementById('studentModal').classList.add('active');
+        }
+
+        function openEditStudentModal(idx) {
+            const s = students[idx];
+            document.getElementById('modalHeading').innerText = '📝 編輯學籍檔案';
+            document.getElementById('editStudentIdx').value = idx;
+
+            document.getElementById('formName').value = s.name;
+            document.getElementById('formSchoolNum').value = s.school_num;
+            document.getElementById('formClass').value = s.class_code;
+            document.getElementById('formDept').value = s.dept;
+            document.getElementById('formSeat').value = s.seat_num;
+            document.getElementById('formTel').value = s.tel || '';
+            document.getElementById('formAddr').value = s.addr || '';
+            document.getElementById('formBirth').value = s.birthday || '';
+            document.getElementById('formScore').value = s.score !== null && s.score !== undefined ? s.score : '';
+
+            document.getElementById('studentModal').classList.add('active');
+        }
+
+        function closeStudentModal() {
+            document.getElementById('studentModal').classList.remove('active');
+        }
+
+        function saveStudent(e) {
+            e.preventDefault();
+
+            const idx = document.getElementById('editStudentIdx').value;
+            const name = document.getElementById('formName').value;
+            const schoolNum = document.getElementById('formSchoolNum').value;
+            const classCode = document.getElementById('formClass').value;
+            const dept = document.getElementById('formDept').value;
+            const seat = parseInt(document.getElementById('formSeat').value);
+            const tel = document.getElementById('formTel').value;
+            const addr = document.getElementById('formAddr').value;
+            const birth = document.getElementById('formBirth').value;
+            const scoreVal = document.getElementById('formScore').value;
+            const score = scoreVal !== '' ? parseInt(scoreVal) : null;
+
+            const studentData = {
+                name, school_num: schoolNum, class_code: classCode, dept,
+                seat_num: seat, tel, addr, birthday: birth, score
+            };
+
+            if (idx === '') {
+                // Check duplicate school number
+                if (students.some(s => s.school_num === schoolNum)) {
+                    alert('⚠️ 此學號已存在於系統中，請使用其他學號！');
+                    return;
+                }
+                students.push(studentData);
+            } else {
+                students[parseInt(idx)] = studentData;
+            }
+
+            saveToStorage();
+            closeStudentModal();
+
+            // Refresh current active sections
+            updateDashboardStats();
+            filterStudents();
+            loadGrades();
+        }
+
+        function deleteStudent(idx) {
+            if (confirm(`⚠️ 確定要刪除學生 [${students[idx].name}] 的所有學籍與成績檔案嗎？此動作無法復原。`)) {
+                students.splice(idx, 1);
+                saveToStorage();
+
+                updateDashboardStats();
+                filterStudents();
+                loadGrades();
+            }
+        }
+    </script>
+</body>
+
+</html>

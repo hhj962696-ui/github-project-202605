@@ -1,0 +1,19 @@
+我們現在要「從無到有」建置先前討論過的「NAS 自動化 AI 政府標案/公開徵求查找系統」。請扮演我的資深全端工程師與技術導師，帶領我一步步完成。
+
+以下是我們的專案範疇與技術規格：
+1. 運行環境與 Docker 細節：
+   - 部署平台：個人 NAS（使用 Synology Container Manager 或 QNAP Container Station）。
+   - 容器設計：採用輕量化的 `python:3.10-slim` 作為基礎鏡像（Base Image）。
+   - 資料掛載：透過資料卷掛載（Volume Mapping `-v`），將 NAS 的實體專案資料夾對接到容器內的 `/app` 工作目錄，方便管理程式碼與 requirements.txt。
+   - 資安管理：為了避免敏感資料外洩，AI API Key 和 Discord Webhook URL 必須透過環境變數（Environment Variables）或 `.env` 檔案在啟動時傳入 Docker 容器。
+   - 運行策略：採用短暫運作、跑完即銷毀（`--rm`）的容器模式，執行完當日爬取與通知後自動釋放，不長時間佔用 NAS 記憶體。
+2. 爬蟲核心：使用 Python 撰寫，負責抓取「政府電子採購網」當天最新的標案或公開徵求。
+3. 資料庫：連接 NAS 內建的 MariaDB/MySQL，記錄已爬取的標案案號，防止重複通知。
+4. AI 模組：將過濾後的標案送給 AI API（如 OpenAI），進行語意分析（判斷是否符合我的網頁前後端/PHP/MySQL專長），並要求 AI 嚴格回傳包含 is_match、match_rate、reason 的 JSON 格式。
+5. 通知機制：確定使用「Discord Webhook」，當 AI 判定符合時，發送排版精美的卡片訊息（Embeds）到我的 Discord 頻道與手機。
+6. 排程自動化：利用 NAS 內建的「工作排程器」，設定每天早上 09:00 定時執行上述 Docker 啟動指令。
+
+今天我想正式動工，從【步驟一：本地端環境準備、專案目錄規劃與 Docker 基礎配置】開始。請詳細引導我：
+1. 我在電腦本地端（如 VS Code）該如何規劃專案資料夾結構（包含未來要上傳到 NAS 的程式碼、requirements.txt 以及安全管理用的環境變數設定）？
+2. Python 的主要套件清單（requirements.txt）目前需要包含哪些？
+3. 請提供第一版能在本地測試、且未來方便直接包進 Docker 運行的 Python 爬蟲基礎架構程式碼。

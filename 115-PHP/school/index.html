@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>翠園高中 - 校園首頁</title>
-=======
-    <title>校園管理系統 - 首頁</title>
->>>>>>> 7614b9681d036a2f7afa3759b1294be5541adf09
     <style>
         * {
             margin: 0;
@@ -15,7 +11,6 @@
             box-sizing: border-box;
         }
 
-<<<<<<< HEAD
         body {
             font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
@@ -85,76 +80,10 @@
             border-radius: 6px;
             font-size: 14px;
             font-weight: bold;
-=======
-        :root {
-            --primary-green: #10B981;
-            --light-green: #D1FAE5;
-            --dark-green: #047857;
-            --accent-blue: #3B82F6;
-            --light-text: #6B7280;
-            --dark-text: #1F2937;
-            --border-radius: 12px;
-        }
-
-        body {
-            font-family: 'PingFang TC', 'Microsoft JhengHei', 'Segoe UI', sans-serif;
-            background-color: #F9FAFB;
-            color: var(--dark-text);
-            overflow-x: hidden;
-        }
-
-        /* ========== 頂部導航欄 ========== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-        }
-
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .navbar-logo-icon {
-            font-size: 32px;
-        }
-
-        .navbar-logo-text {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .navbar-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .btn-nav {
-            padding: 8px 24px;
-            border-radius: 25px;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
->>>>>>> 7614b9681d036a2f7afa3759b1294be5541adf09
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-<<<<<<< HEAD
         }
 
         .btn-login {
@@ -170,30 +99,10 @@
 
         .btn-register {
             background-color: #ff9800;
-=======
-            white-space: nowrap;
-        }
-
-        .btn-login {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-login:hover {
-            background-color: white;
-            color: var(--primary-green);
-            transform: translateY(-2px);
-        }
-
-        .btn-register {
-            background-color: #3B82F6;
->>>>>>> 7614b9681d036a2f7afa3759b1294be5541adf09
             color: white;
         }
 
         .btn-register:hover {
-<<<<<<< HEAD
             background-color: #f57c00;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
@@ -361,182 +270,10 @@
             margin: 20px 0;
             display: flex;
             gap: 30px;
-=======
-            background-color: #2563EB;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-
-        /* 響應式導航 */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0 20px;
-            }
-
-            .navbar-logo-text {
-                font-size: 16px;
-            }
-
-            .btn-nav {
-                padding: 6px 16px;
-                font-size: 12px;
-            }
-        }
-
-        /* ========== 主內容區域 ========== */
-        .container {
-            max-width: 1200px;
-            margin: 70px auto 0;
-            padding: 60px 20px;
-        }
-
-        /* ========== 英雄區域 ========== */
-        .hero {
-            text-align: center;
-            margin-bottom: 80px;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--primary-green);
-            margin-bottom: 15px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            color: var(--light-text);
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .hero .description {
-            font-size: 1rem;
-            color: var(--light-text);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.8;
-        }
-
-        /* ========== 功能卡片 ========== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 35px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            border-top: 4px solid var(--primary-green);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .feature-card:hover::before {
-            left: 100%;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.15);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.4rem;
-            color: var(--primary-green);
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--light-text);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* ========== 統計區域 ========== */
-        .stats-section {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
-            border-radius: var(--border-radius);
-            padding: 50px 20px;
-            margin-bottom: 60px;
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            text-align: center;
-        }
-
-        .stat-item h4 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .stat-item p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* ========== CTA 區域 ========== */
-        .cta-section {
-            text-align: center;
-            padding: 40px;
-            background-color: var(--light-green);
-            border-radius: var(--border-radius);
-            margin-bottom: 40px;
-        }
-
-        .cta-section h2 {
-            color: var(--dark-green);
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .cta-section p {
-            color: var(--light-text);
-            margin-bottom: 25px;
-            font-size: 1.05rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 15px;
->>>>>>> 7614b9681d036a2f7afa3759b1294be5541adf09
             justify-content: center;
             flex-wrap: wrap;
         }
 
-<<<<<<< HEAD
         .footer-links a {
             color: #ffc107;
             text-decoration: none;
@@ -589,144 +326,11 @@
 
             .section-title {
                 font-size: 24px;
-=======
-        .cta-button {
-            padding: 12px 30px;
-            border-radius: 25px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .cta-primary {
-            background-color: var(--primary-green);
-            color: white;
-        }
-
-        .cta-primary:hover {
-            background-color: var(--dark-green);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .cta-secondary {
-            background-color: white;
-            color: var(--primary-green);
-            border: 2px solid var(--primary-green);
-        }
-
-        .cta-secondary:hover {
-            background-color: var(--light-green);
-        }
-
-        /* ========== 頁腳 ========== */
-        footer {
-            background-color: #1F2937;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-        }
-
-        footer p {
-            margin: 0;
-            opacity: 0.8;
-        }
-
-        /* ========== 動畫 ========== */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .features-grid .feature-card {
-            animation: slideInUp 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
-        .features-grid .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .features-grid .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .features-grid .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        .features-grid .feature-card:nth-child(4) { animation-delay: 0.4s; }
-
-        /* ========== 響應式設計 ========== */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cta-section h2 {
-                font-size: 1.5rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .cta-button {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 40px 15px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .feature-card {
-                padding: 25px;
-            }
-
-            .stat-item h4 {
-                font-size: 2rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
->>>>>>> 7614b9681d036a2f7afa3759b1294be5541adf09
             }
         }
     </style>
 </head>
 <body>
-<<<<<<< HEAD
     <!-- 頂部導航欄 -->
     <nav class="navbar">
         <div class="nav-container">
@@ -862,92 +466,5 @@
             });
         });
     </script>
-=======
-    <!-- 導航欄 -->
-    <nav class="navbar">
-        <a href="index.html" class="navbar-logo">
-            <span class="navbar-logo-icon">🎓</span>
-            <span class="navbar-logo-text">校園管理系統</span>
-        </a>
-        <div class="navbar-actions">
-            <a href="login.php" class="btn-nav btn-login">登入</a>
-            <a href="register.php" class="btn-nav btn-register">註冊</a>
-        </div>
-    </nav>
-
-    <!-- 主要內容 -->
-    <div class="container">
-        <!-- 英雄區域 -->
-        <div class="hero">
-            <h1>📚 校園管理系統</h1>
-            <p class="subtitle">智慧校園，輕鬆管理</p>
-            <p class="description">
-                提供完整的校園管理解決方案，讓學生、教師和行政人員能夠高效協作，
-                打造一個現代化、智慧化的校園環境。
-            </p>
-        </div>
-
-        <!-- 功能卡片 -->
-        <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon">👥</span>
-                <h3>學生管理</h3>
-                <p>完整的學生資訊管理系統，包括學籍、成績、出勤等全方位記錄</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">📊</span>
-                <h3>成績管理</h3>
-                <p>智能化成績管理和統計分析，幫助教師更好地評估學生表現</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">📅</span>
-                <h3>課程排表</h3>
-                <p>靈活的課程排表系統，自動避免衝突，確保最優化的時間安排</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">📢</span>
-                <h3>公告通知</h3>
-                <p>實時推送校園公告，確保所有人員及時獲取最新資訊</p>
-            </div>
-        </div>
-
-        <!-- 統計區域 -->
-        <div class="stats-section">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h4>1,250+</h4>
-                    <p>在校學生</p>
-                </div>
-                <div class="stat-item">
-                    <h4>150+</h4>
-                    <p>教職員工</p>
-                </div>
-                <div class="stat-item">
-                    <h4>50+</h4>
-                    <p>教室班級</p>
-                </div>
-                <div class="stat-item">
-                    <h4>99.9%</h4>
-                    <p>系統穩定性</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTA 區域 -->
-        <div class="cta-section">
-            <h2>🚀 開始使用校園管理系統</h2>
-            <p>立即加入，體驗智慧校園生活</p>
-            <div class="cta-buttons">
-                <a href="login.php" class="cta-button cta-primary">立即登入</a>
-                <a href="register.php" class="cta-button cta-secondary">申請帳號</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 頁腳 -->
-    <footer>
-        <p>&copy; 2026 校園管理系統 版權所有 | 保留所有權利</p>
-    </footer>
->>>>>>> 7614b9681d036a2f7afa3759b1294be5541adf09
 </body>
 </html>
