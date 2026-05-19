@@ -25,8 +25,13 @@ try {
     // Fallback if query fails
 }
 
-// Get classroom code if passed from previous page
-$class_code = isset($_GET['code']) ? $_GET['code'] : '';
+// Fetch classes for 所屬班級 select
+$classes = [];
+try {
+    $classes = $pdo->query("SELECT * FROM `classes` ORDER BY `code` ASC")->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    // fallback
+}
 ?>
 
 <style>
@@ -247,13 +252,43 @@ $class_code = isset($_GET['code']) ? $_GET['code'] : '';
             <p>✨ 建立翠園高中學生學籍檔案 ✨</p>
         </div>
 
-        <form action="api_add_student.php" method="post">
+        <form action="./include/api_add_student.php" method="post">
             <!-- Hidden classroom code input to persist class association -->
-            <input type="hidden" name="class_code" value="<?= htmlspecialchars($class_code) ?>">
-
+            <div class="add-student-group">
+    <label for="class_code" class="add-student-label">所屬班級<span class="required-star">*</span></label>
+    <select id="class_code" name="class_code" class="add-student-select" required>
+        <option value="" disabled selected>-- 請選擇班級 --</option>
+        <?php foreach ($classes as $cls): ?>
+            <option value="<?= htmlspecialchars($cls['code']) ?>">
+                <?= htmlspecialchars($cls['name']) ?> (<?= htmlspecialchars($cls['code']) ?>)
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+            <div id="schoolNumInfo" class="add-student-info" style="margin-bottom:20px;color:#2e7d32;font-weight:bold;"></div>
             <div class="add-student-grid">
                 
-                <!-- 學號 (school_num) -> input number -->
+                <!-- 學號 (school_num) -> input number (auto-filled) -->
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const classSelect = document.getElementById('class_code');
+                    const schoolNumInput = document.getElementById('school_num');
+                    if (classSelect && schoolNumInput) {
+                        classSelect.addEventListener('change', function () {
+                            const code = this.value;
+                            if (!code) return;
+                            fetch(`api_get_next_school_num.php?class_code=${encodeURIComponent(code)}`)
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.next_school_num) {
+                                        schoolNumInput.value = data.next_school_num;
+                                    }
+                                })
+                                .catch(err => console.error('Error fetching next school number:', err));
+                        });
+                    }
+                });
+                </script>
                 <div class="add-student-group">
                     <label for="school_num" class="add-student-label">學號<span class="required-star">*</span></label>
                     <input 
@@ -393,8 +428,8 @@ $class_code = isset($_GET['code']) ? $_GET['code'] : '';
 
                 <!-- Actions Buttons -->
                 <div class="add-student-actions">
-                    <button type="submit" class="add-student-btn add-student-btn-submit">確認新增</button>
-                    <button type="reset" class="add-student-btn add-student-btn-reset">清空欄位</button>
+                    <a type="submit" class="add-student-btn add-student-btn-submit">確認新增</a>
+                    <a type="reset" class="add-student-btn add-student-btn-reset">清空欄位</a>
                 </div>
 
                 <!-- Helper Tips -->

@@ -216,7 +216,7 @@ foreach($students as $student):?>
             </div>
             <div class="info-row">
                 <span class="label">科別</span>
-                <span class="value"><?php $student['dept_name']; ?></span>
+                <span class="value"><?php $student['dept']; ?></span>
             </div>
             <div class="info-row">
                 <span class="label">畢業國中</span>
