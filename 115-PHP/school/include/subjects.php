@@ -16,7 +16,7 @@
 }
 </style>
 <?php 
-include_once "db_conn.php";
+
 //計算各科別，有多少學生
 $sql="SELECT `dept`.`name` as '科別',
              `dept`.`id` as 'dept_id',

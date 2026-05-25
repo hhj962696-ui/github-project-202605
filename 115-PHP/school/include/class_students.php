@@ -4,6 +4,7 @@
     display:flex;
     flex-wrap:wrap;
     gap:20px;
+    margin:16px 0;
 }
 
 
@@ -116,70 +117,43 @@ a.del-btn {
     border-radius: 20px;
     background: lightcoral;
 }
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #a5d6a7;
+.add-btn{
+    display:inline-block;
+    padding:8px 24px;
+    background:lightskyblue;
+    margin:20px;
+    border:1px solid lightseagreen;
+    border-radius:24px;
+    font-size:20px;
 }
-.list-header h2 {
-    color: #2e7d32;
-    margin: 0;
-    font-size: 26px;
-}
-.add-btn {
-    padding: 10px 24px;
-    background-color: #ff9800;
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 24px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-.add-btn:hover {
-    background-color: #f57c00;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 152, 0, 0.3);
+.add-btn:hover{
+    box-shadow:3px 3px 15px #666;
+    transform:translateY(-5px);
 }
 </style>
-<div class="list-header">
-    <h2><?= htmlspecialchars($_GET['code']); ?>班級學生列表</h2>
-    <a href="?inc=add_student&code=<?= htmlspecialchars($_GET['code']); ?>" class='add-btn'>
-        <span>✨</span> 新增學生
-    </a>
-</div>
+<h2><?= $_GET['code']; ?>班級學生列表</h2>
+<a href="?inc=add_student&code=<?= $_GET['code']; ?>" class='add-btn'>新增學生</a>
 
 <?php 
 //從class_student 中找到班級學生的學號
-include "db_conn.php";
+include_once "db_conn.php";
 //$sql="select * from `class_student` where `class_code`='{$_GET['code']}'";
-$sql=
-    "SELECT `students`.`school_num`,
+$sql="select 
+             `students`.`school_num`,
              `students`.`name`,
-             `dept`.`name` AS 'dept_name',
+             `dept`.`name` as 'dept_name',
              `addr`,
-             `dept`,
              `uni_id`,
-             --`graduate_at`,
-             `graduate_school`.`name` AS `graduate_school`,
+             `graduate_school`.`name` as 'graduate_school',
              `birthday` 
-    FROM    `class_student`,
-             `students` ,
+        from `class_student`,
+             `students`,
              `dept`,
              `graduate_school`
-    WHERE `class_student`.`class_code`='{$_GET['code']}' 
-    AND  `class_student`.`school_num` = `students`.`school_num` 
-    AND  `dept`.`id` = `students`.`dept`
-    AND  `graduate_school`.`id` = `students`.`graduate_at`";
+       where `class_student`.`class_code`='{$_GET['code']}' AND 
+             `class_student`.`school_num`=`students`.`school_num` AND
+             `dept`.`id`=`students`.`dept` AND
+             `graduate_school`.`id`=`students`.`graduate_at`";
 //$nums=$pdo->query($sql)->fetchAll();
 $students=$pdo->query($sql)->fetchAll();
 
@@ -216,21 +190,18 @@ foreach($students as $student):?>
             </div>
             <div class="info-row">
                 <span class="label">科別</span>
-                <span class="value"><?php $student['dept']; ?></span>
+                <span class="value"><?= $student['dept_name']; ?></span>
             </div>
             <div class="info-row">
                 <span class="label">畢業國中</span>
                 <span class="value"><?= $student['graduate_school']; ?></span>
             </div>
             <div class="btn-row">
-                <a class="edit-btn" href="">編輯</a>
-                <a class="del-btn" href="">刪除</a>
+                <a class="edit-btn" href="?inc=edit_student&num=<?= $student['school_num']; ?>">編輯</a>
+                <a class="del-btn" href="?inc=delete_student&num=<?= $student['school_num']; ?>">刪除</a>
             </div>
         </div>
     </div>
 
     <?php endforeach;?>
 </div>
-
-
-

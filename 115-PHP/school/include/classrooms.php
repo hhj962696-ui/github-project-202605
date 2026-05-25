@@ -1,6 +1,5 @@
 <h2 style='text-align:center'>班級列表</h2>
 <?php 
-include "db_conn.php";
 
 $classrooms=$pdo->query("select * from `classes`")->fetchAll();
 

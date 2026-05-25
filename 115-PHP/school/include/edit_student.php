@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增學生</title>
+    <title>編輯學生資料</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,14 +89,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>新增學生</h1>
-        <form method="POST" action="./include/api_add_student.php">
+        <h1>編輯學生資料</h1>
+        <?php
+        $student=$pdo->query("select * from `students` where `school_num`='{$_GET['num']}'")->fetch();
+        $class_code=$pdo->query("select * from `class_student` where `school_num`='{$_GET['num']}'")->fetch();
+
+        ?>
+        <form method="POST" action="./include/api_edit_student.php">
             <div class="form-group">
                 <label for="school_num">學號</label>
-                <?php 
-                $defaut_num=$pdo->query("select max(`school_num`) from `students`")->fetchColumn()+1;
-                ?>
-                <input type="number" id="school_num" name="school_num" value="<?= $defaut_num; ?>">
+                <div><?= $student['school_num']; ?></div>
+                <input type="hidden" id="school_num" name="school_num" value="<?= $student['school_num']; ?>">
             </div>
             <div class="form-group">
                 <label for="class">所屬班級</label>
@@ -105,19 +108,15 @@
 
                     <?php 
                         $classes=$pdo->query("SELECT * FROM `classes`")->fetchAll();
-                        $is_code=(isset($_GET['code']))?$_GET['code']:'';
                         foreach($classes as $class):
                     ?>
-                    <option value="<?= $class['code']; ?>" <?= ($is_code==$class['code'])?'selected':''; ?> ><?= $class['name']; ?></option>
+                    <option value="<?= $class['code']; ?>" <?= ($class['code']==$class_code['class_code'])?'selected':''; ?> ><?= $class['name']; ?></option>
                     <?php endforeach;?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="seat_num">座號</label>
-                <?php 
-                $defaut_num=$pdo->query("select max(`seat_num`) from `class_student` where `class_code`=''")->fetchColumn()+1;
-                ?>
-                <input type="number" id="seat_num" name="seat_num" value="<?= $defaut_num; ?>">
+                <input type="number" id="seat_num" name="seat_num" value="<?= $class_code['seat_num']; ?>">
             </div>
             <script>
                 // 監聽班級選擇變更
@@ -150,32 +149,32 @@
             </script>
             <div class="form-group">
                 <label for="name">姓名</label>
-                <input type="text" id="name" name="name" >
+                <input type="text" id="name" name="name" value="<?= $student['name'] ?>">
             </div>
 
             <div class="form-group">
                 <label for="birthday">生日</label>
-                <input type="date" id="birthday" name="birthday" >
+                <input type="date" id="birthday" name="birthday" value="<?= $student['birthday'] ?>" >
             </div>
 
             <div class="form-group">
                 <label for="uni_id">身份證字號</label>
-                <input type="text" id="uni_id" name="uni_id" placeholder="例如：A123456789" >
+                <input type="text" id="uni_id" name="uni_id" value="<?= $student['uni_id'] ?>" placeholder="例如：A123456789" >
             </div>
 
             <div class="form-group">
                 <label for="addr">地址</label>
-                <input type="text" id="addr" name="addr" >
+                <input type="text" id="addr" name="addr" value="<?= $student['addr'] ?>" >
             </div>
 
             <div class="form-group">
                 <label for="parents">父母</label>
-                <input type="text" id="parents" name="parents" >
+                <input type="text" id="parents" name="parents" value="<?= $student['parents'] ?>" >
             </div>
 
             <div class="form-group">
                 <label for="tel">電話</label>
-                <input type="text" id="tel" name="tel" placeholder="例如：0912345678" >
+                <input type="text" id="tel" name="tel" value="<?= $student['tel'] ?>" placeholder="例如：0912345678" >
             </div>
 
             <div class="form-group">
@@ -186,7 +185,7 @@
                         $depts=$pdo->query("SELECT * FROM `dept`")->fetchAll();
                         foreach($depts as $dept):
                     ?>
-                    <option value="<?= $dept['id']; ?>"><?= $dept['name']; ?></option>
+                    <option value="<?= $dept['id']; ?>" <?= ($dept['id']==$student['dept'])?'selected':''; ?> ><?= $dept['name']; ?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -199,7 +198,7 @@
                         $schools=$pdo->query("SELECT * FROM `graduate_school`")->fetchAll();
                         foreach($schools as $school):
                     ?>
-                    <option value="<?= $school['id']; ?>"><?= $school['county'].$school['name']; ?></option>
+                    <option value="<?= $school['id']; ?>" <?= ($school['id']==$student['graduate_at'])?'selected':''; ?> ><?= $school['county'].$school['name']; ?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -212,13 +211,13 @@
                         $status=$pdo->query("SELECT * FROM `status`")->fetchAll();
                         foreach($status as $s):
                     ?>
-                    <option value="<?= $s['id']; ?>"><?= $s['status']."(".$s['note'].")"; ?></option>
+                    <option value="<?= $s['id']; ?>" <?= ($s['id']==$student['status_code'])?'selected':''; ?> ><?= $s['status']."(".$s['note'].")"; ?></option>
                     <?php endforeach;?>
                 </select>
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn-submit">新增學生</button>
+                <button type="submit" class="btn-submit">確認修改</button>
                 <button type="reset" class="btn-reset">清除</button>
             </div>
         </form>

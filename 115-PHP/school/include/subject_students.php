@@ -1,4 +1,3 @@
-<?php include "db_conn.php";?>
 <style>
 /* 整個列表 */
 .student-list{

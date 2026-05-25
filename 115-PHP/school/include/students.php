@@ -165,7 +165,7 @@ a.del-btn {
 
 <?php 
 //從class_student 中找到班級學生的學號
-include "db_conn.php";
+
 $total_students=$pdo->query("select count(*) from `students`")->fetchColumn();
 $div=16;
 $pages=ceil($total_students/$div);
