@@ -1,166 +1,180 @@
 <style>
-/* 整個列表 */
-.student-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-    margin:16px 0;
-}
+    /* 整個列表 */
+    .student-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 16px 0;
+    }
 
 
-/* 卡片 */
-.student-card{
-    width:240px;
-    background:#ffffff;
-    border-radius:16px;
-    padding:16px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    /* 卡片 */
+    .student-card {
+        width: 240px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 
-    position:relative;
+        position: relative;
 
-    transition:0.3s;
-}
-
-
-/* 滑鼠效果 */
-.student-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
+        transition: 0.3s;
+    }
 
 
-/* 學號 */
-.student-id{
-    position:absolute;
-    top:15px;
-    right:15px;
-
-    background:#6c63ff;
-    color:white;
-
-    padding:5px 12px;
-    border-radius:30px;
-
-    font-size:14px;
-}
+    /* 滑鼠效果 */
+    .student-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
 
 
-/* 大頭照 */
-.student-photo{
-    text-align:center;
-    margin-bottom:15px;
-}
+    /* 學號 */
+    .student-id {
+        position: absolute;
+        top: 15px;
+        right: 15px;
 
-.student-photo img{
-    width:96px;
-    height:96px;
-    border-radius:50%;
-    object-fit:cover;
-    border:5px solid #f2f2f2;
-}
+        background: #6c63ff;
+        color: white;
 
+        padding: 5px 12px;
+        border-radius: 30px;
 
-/* 姓名 */
-.student-name{
-    text-align:center;
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:16px;
-}
+        font-size: 14px;
+    }
 
 
-/* 資訊區 */
-.student-info{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
+    /* 大頭照 */
+    .student-photo {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .student-photo img {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #f2f2f2;
+    }
 
 
-/* 每一列 */
-.info-row{
-    display:flex;
-}
+    /* 姓名 */
+    .student-name {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
 
 
-/* 標題 */
-.label{
-    width:76px;
-    color:#666;
-    font-weight:bold;
-}
+    /* 資訊區 */
+    .student-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
 
 
-/* 值 */
-.value{
-    flex:1;
-    color:#333;
-}
-.btn-row{
-    display:flex;
-    justify-content: space-evenly;
-    padding:4px 16px;
-}
-a.edit-btn {
-    padding: 4px 16px;
-    border: 1px solid #eee;
-    border-radius: 20px;
-    background: lightgreen;
-}
-a.edit-btn:hover,a.del-btn:hover{
-    padding:4px 24px;
-}
+    /* 每一列 */
+    .info-row {
+        display: flex;
+    }
 
-a.del-btn {
-    padding: 4px 16px;
-    border: 1px solid #eee;
-    border-radius: 20px;
-    background: lightcoral;
-}
-.add-btn{
-    display:inline-block;
-    padding:8px 24px;
-    background:lightskyblue;
-    margin:20px;
-    border:1px solid lightseagreen;
-    border-radius:24px;
-    font-size:20px;
-}
-.add-btn:hover{
-    box-shadow:3px 3px 15px #666;
-    transform:translateY(-5px);
-}
-.page-nav {
-    display: block;
-    margin: auto;
-    width: 80%;
-}
 
-.page-nav a {
-    text-decoration: none;
-    display: inline-block;
-    margin: 0px 2px;
-    padding: 4px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    width: 36px;
-    height: 36px;
-    text-align: center;
-}
+    /* 標題 */
+    .label {
+        width: 76px;
+        color: #666;
+        font-weight: bold;
+    }
+
+
+    /* 值 */
+    .value {
+        flex: 1;
+        color: #333;
+    }
+
+    .btn-row {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 4px 16px;
+    }
+
+    a.edit-btn {
+        padding: 4px 16px;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        background: lightgreen;
+    }
+
+    a.edit-btn:hover,
+    a.del-btn:hover {
+        padding: 4px 24px;
+    }
+
+    a.del-btn {
+        padding: 4px 16px;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        background: lightcoral;
+    }
+
+    .add-btn {
+        display: inline-block;
+        padding: 8px 24px;
+        background: lightskyblue;
+        margin: 20px;
+        border: 1px solid lightseagreen;
+        border-radius: 24px;
+        font-size: 20px;
+    }
+
+    .add-btn:hover {
+        box-shadow: 3px 3px 15px #666;
+        transform: translateY(-5px);
+    }
+
+    .page-nav {
+        display: block;
+        margin: auto;
+        width: 80%;
+    }
+
+    .page-nav a {
+        text-decoration: none;
+        display: inline-block;
+        margin: 0px 2px;
+        padding: 4px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        width: 36px;
+        height: 36px;
+        text-align: center;
+        color: #666;
+    }
+
+    .page-nav .now-page {
+        background: lightblue;
+        color: white;
+        border-color: red;
+    }
 </style>
 
 <a href="?inc=add_student" class='add-btn'>新增學生</a>
 
-<?php 
+<?php
 //從class_student 中找到班級學生的學號
 include "db_conn.php";
-$total_students=$pdo->query("select count(*) from `students`")->fetchColumn();
-$div=16;
-$pages=ceil($total_students/$div);
-$now_page=$_GET['page']??1;
-$start=($now_page-1)*$div;
+$total_students = $pdo->query("select count(*) from `students`")->fetchColumn();
+$div = 16;
+$pages = ceil($total_students / $div);
+$now_page = $_GET['page'] ?? 1;
+$start = ($now_page - 1) * $div;
 
-$sql="select 
+$sql = "select 
              `students`.`school_num`,
              `students`.`name`,
              `dept`.`name` as 'dept_name',
@@ -179,30 +193,67 @@ $sql="select
 //$nums=$pdo->query($sql)->fetchAll();
 
 
-$students=$pdo->query($sql)->fetchAll();
+$students = $pdo->query($sql)->fetchAll();
 ?>
 
 <div class='page-nav'>
-<?php 
+    <?php
 
+    //最左邊的上一頁
     if($now_page-1 >0){
         $perv=$now_page-1;
         echo "<a href='?inc=students&page=$perv'> < </a>";
+    }else{
+        echo "<a href='javascript:return false;'> < </a>";
     }
 
-    for($i=1;$i<=$pages;$i++){
-        echo "<a href='?inc=students&page=$i'> $i </a>";
+    echo "<div>";
+    if($now_page > 3){
+        echo "<a href='?inc=students&page=1'> 1 </a>";
+        echo "<span> ... </span>";
     }
 
+    $start_page=$now_page-2;
+    $end_page=$now_page+2;
+
+    if($start_page <=1){
+        $start_page=1;
+        $end_page=min(5,$pages);
+    }
+
+    if($end_page > $pages){
+        $start_page=max(1,$pages-4);
+        $end_page=$pages;
+    }
+        
+    for($i=$start_page;$i<=$end_page;$i++){
+        
+        $now_class=($now_page==$i)?"now-page":"";
+      
+       echo "<a href='?inc=students&page=$i' class='$now_class'> $i </a>";
+    }
+
+    if($now_page < $pages-2){
+        echo "<span> ... </span>";
+        echo "<a href='?inc=students&page=$pages'> $pages </a>";
+    }
+
+    echo "</div>";
+
+    //最右邊的下一頁
     if($now_page+1 <=$pages){
         $next=$now_page+1;
         echo "<a href='?inc=students&page=$next'> > </a>";
+    }else{
+        echo "<a href='javascript:return false;'> > </a>";
+
     }
+
     ?>
 </div>
 <?php
 echo "<div class='student-list'>";
-foreach($students as $student):?>
+foreach ($students as $student): ?>
     <!-- 單一卡片 -->
     <div class="student-card">
         <!-- 學號 -->
@@ -211,11 +262,11 @@ foreach($students as $student):?>
         </div>
         <!-- 大頭照 -->
         <div class="student-photo">
-            <?php if(isset($student['header'])):;?>
-            <img src="img/<?= $student['header']; ?>">
-            <?php else :;?>
-            <img src="img/<?= (mb_substr($student['uni_id'],1,1)==1)?'header_default_boy.jpg':'header_default_girl.jpg'; ?>">
-            <?php endif;?>
+            <?php if (isset($student['header'])):; ?>
+                <img src="img/<?= $student['header']; ?>">
+            <?php else :; ?>
+                <img src="img/<?= (mb_substr($student['uni_id'], 1, 1) == 1) ? 'header_default_boy.jpg' : 'header_default_girl.jpg'; ?>">
+            <?php endif; ?>
         </div>
         <!-- 姓名 -->
         <div class="student-name">
@@ -230,7 +281,7 @@ foreach($students as $student):?>
             </div>
             <div class="info-row">
                 <span class="label">地址</span>
-                <span class="value"><?= mb_substr($student['addr'],0,3); ?></span>
+                <span class="value"><?= mb_substr($student['addr'], 0, 3); ?></span>
             </div>
             <div class="info-row">
                 <span class="label">科別</span>
@@ -247,22 +298,22 @@ foreach($students as $student):?>
         </div>
     </div>
 
-    <?php endforeach;?>
+<?php endforeach; ?>
 </div>
 <div class='page-nav'>
-<?php 
+    <?php
 
-    if($now_page-1 >0){
-        $perv=$now_page-1;
+    if ($now_page - 1 > 0) {
+        $perv = $now_page - 1;
         echo "<a href='?inc=students&page=$perv'> < </a>";
     }
 
-    for($i=1;$i<=$pages;$i++){
+    for ($i = 1; $i <= $pages; $i++) {
         echo "<a href='?inc=students&page=$i'> $i </a>";
     }
 
-    if($now_page+1 <=$pages){
-        $next=$now_page+1;
+    if ($now_page + 1 <= $pages) {
+        $next = $now_page + 1;
         echo "<a href='?inc=students&page=$next'> > </a>";
     }
     ?>

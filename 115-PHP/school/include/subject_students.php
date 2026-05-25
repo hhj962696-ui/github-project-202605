@@ -1,3 +1,4 @@
+<?php include "db_conn.php";?>
 <style>
 /* 整個列表 */
 .student-list{
@@ -130,51 +131,44 @@ a.del-btn {
     box-shadow:3px 3px 15px #666;
     transform:translateY(-5px);
 }
-.page-nav {
-    display: flex;
-    justify-content:space-between;
-    width: 100%;
-}
-
-.page-nav a {
-    text-decoration: none;
-    display: inline-block;
-    margin: 0px 2px;
-    padding: 4px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    width: 36px;
-    height: 36px;
-    text-align: center;
-    color:blue;
-}
-
-.page-nav a:hover{
-    text-decoration:underline;
-    background:#ddd;
-}
-.page-nav .now-page{
-    background:#6c63ff;
-    color:white;
-    border-color:#6c63ff;
-    font-weight: 600;
-}
 </style>
-
-<a href="?inc=add_student" class='add-btn'>新增學生</a>
-
+<?php
+$dept_name=$pdo->query("SELECT `name` FROM `dept` WHERE `id`='{$_GET['dept']}'")->fetchColumn();
+?>
+<h2 style="text-align:center"><?= $dept_name; ?> 學生列表</h2>
 <?php 
 //從class_student 中找到班級學生的學號
-include "db_conn.php";
-$total_students=$pdo->query("select count(*) from `students`")->fetchColumn();
-$div=16;
-$pages=ceil($total_students/$div);
-$now_page=$_GET['page']??1;
-$start=($now_page-1)*$div;
 
+//$sql="select * from `class_student` where `class_code`='{$_GET['code']}'";
+// ===== SQL 查詢語句：獲取指定科別的所有學生詳細資訊 =====
+// SELECT 指令：查詢多個資料表中的指定欄位
+// 選取欄位說明：
+//   - students.school_num：學號（來自學生資料表）
+//   - students.name：姓名（來自學生資料表）
+//   - classes.name as 'class_name'：班級名稱（來自班級資料表，別名為 class_name）
+//   - dept.name as 'dept_name'：科別名稱（來自科別資料表，別名為 dept_name）
+//   - addr：地址（來自學生資料表）
+//   - uni_id：身分證號（來自學生資料表）
+//   - graduate_school.name as 'graduate_school'：畢業國中名稱（來自畢業國中資料表，別名為 graduate_school）
+//   - birthday：出生日期（來自學生資料表）
+// 
+// FROM 子句：關聯四個資料表
+//   - class_student：班級學生對應表
+//   - students：學生資料表
+//   - dept：科別資料表
+//   - graduate_school：畢業國中資料表
+//   - classes：班級資料表
+//
+// WHERE 子句：設定資料表間的關聯條件及篩選條件
+//   - class_student.school_num = students.school_num：班級學生表與學生表關聯（學號相同）
+//   - dept.id = students.dept：科別表與學生表關聯（科別ID相同）
+//   - graduate_school.id = students.graduate_at：畢業國中表與學生表關聯（畢業國中ID相同）
+//   - classes.code = class_student.class_code：班級表與班級學生表關聯（班級代碼相同）
+//   - students.dept = '{$_GET['dept']}'：篩選條件，只查詢該科別的學生
 $sql="select 
-             `students`.`school_num`,
+             `students`.`school_num`, 
              `students`.`name`,
+             `classes`.`name` as 'class_name',
              `dept`.`name` as 'dept_name',
              `addr`,
              `uni_id`,
@@ -183,71 +177,17 @@ $sql="select
         from `class_student`,
              `students`,
              `dept`,
-             `graduate_school`
+             `graduate_school`,
+             `classes`
        where `class_student`.`school_num`=`students`.`school_num` AND
              `dept`.`id`=`students`.`dept` AND
-             `graduate_school`.`id`=`students`.`graduate_at`
-        limit $start,$div";
+             `graduate_school`.`id`=`students`.`graduate_at` AND
+             `classes`.`code`=`class_student`.`class_code` AND
+             `students`.`dept`='{$_GET['dept']}'";
+            
 //$nums=$pdo->query($sql)->fetchAll();
-
-
 $students=$pdo->query($sql)->fetchAll();
-?>
 
-<div class='page-nav'>
-<?php 
-    //最左邊的上一頁
-    if($now_page-1 >0){
-        $perv=$now_page-1;
-        echo "<a href='?inc=students&page=$perv'> < </a>";
-    }else{
-        echo "<a href='javascript:return false;'> < </a>";
-    }
-
-    echo "<div>";
-    if($now_page > 3){
-        echo "<a href='?inc=students&page=1'> 1 </a>";
-        echo "<span> ... </span>";
-    }
-
-    $start_page=$now_page-2;
-    $end_page=$now_page+2;
-
-    if($start_page <=1){
-        $start_page=1;
-        $end_page=min(5,$pages);
-    }
-
-    if($end_page > $pages){
-        $start_page=max(1,$pages-4);
-        $end_page=$pages;
-    }
-        
-    for($i=$start_page;$i<=$end_page;$i++){
-        
-        $now_class=($now_page==$i)?"now-page":"";
-      
-       echo "<a href='?inc=students&page=$i' class='$now_class'> $i </a>";
-    }
-
-    if($now_page < $pages-2){
-        echo "<span> ... </span>";
-        echo "<a href='?inc=students&page=$pages'> $pages </a>";
-    }
-
-    echo "</div>";
-
-    //最右邊的下一頁
-    if($now_page+1 <=$pages){
-        $next=$now_page+1;
-        echo "<a href='?inc=students&page=$next'> > </a>";
-    }else{
-        echo "<a href='javascript:return false;'> > </a>";
-
-    }
-    ?>
-</div>
-<?php
 echo "<div class='student-list'>";
 foreach($students as $student):?>
     <!-- 單一卡片 -->
@@ -284,6 +224,10 @@ foreach($students as $student):?>
                 <span class="value"><?= $student['dept_name']; ?></span>
             </div>
             <div class="info-row">
+                <span class="label">班級</span>
+                <span class="value"><?= $student['class_name']; ?></span>
+            </div>
+            <div class="info-row">
                 <span class="label">畢業國中</span>
                 <span class="value"><?= $student['graduate_school']; ?></span>
             </div>
@@ -295,57 +239,4 @@ foreach($students as $student):?>
     </div>
 
     <?php endforeach;?>
-</div>
-<div class='page-nav'>
-<?php 
-    //最左邊的上一頁
-    if($now_page-1 >0){
-        $perv=$now_page-1;
-        echo "<a href='?inc=students&page=$perv'> < </a>";
-    }else{
-        echo "<a href='javascript:return false;'> < </a>";
-    }
-
-    echo "<div>";
-    if($now_page > 3){
-        echo "<a href='?inc=students&page=1'> 1 </a>";
-        echo "<span> ... </span>";
-    }
-
-    $start_page=$now_page-2;
-    $end_page=$now_page+2;
-
-    if($start_page <=1){
-        $start_page=1;
-        $end_page=min(5,$pages);
-    }
-
-    if($end_page > $pages){
-        $start_page=max(1,$pages-4);
-        $end_page=$pages;
-    }
-        
-    for($i=$start_page;$i<=$end_page;$i++){
-        
-        $now_class=($now_page==$i)?"now-page":"";
-      
-       echo "<a href='?inc=students&page=$i' class='$now_class'> $i </a>";
-    }
-
-    if($now_page < $pages-2){
-        echo "<span> ... </span>";
-        echo "<a href='?inc=students&page=$pages'> $pages </a>";
-    }
-
-    echo "</div>";
-
-    //最右邊的下一頁
-    if($now_page+1 <=$pages){
-        $next=$now_page+1;
-        echo "<a href='?inc=students&page=$next'> > </a>";
-    }else{
-        echo "<a href='javascript:return false;'> > </a>";
-
-    }
-    ?>
 </div>

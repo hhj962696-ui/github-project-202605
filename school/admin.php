@@ -342,6 +342,7 @@
                 翠園高中
             </a>
             <ul class="nav-links">
+                <li><a href="?inc=news">消息管理</a></li>
                 <li><a href="?inc=classrooms">班級</a></li>
                 <li><a href="?inc=students">學生</a></li>
                 <li><a href="?inc=subjects">科別</a></li>
