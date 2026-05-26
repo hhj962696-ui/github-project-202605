@@ -354,7 +354,7 @@
     <main class='main-content'>
 
     <?php
-    
+    include "include/db_conn.php";
     $inc=(isset($_GET['inc']))?$_GET['inc']:'classrooms';
     $file="./include/".$inc.".php";
 

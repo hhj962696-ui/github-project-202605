@@ -1,7 +1,7 @@
 <h2 style='text-align:center'>班級列表</h2>
-<?php 
+<?php include_once "db_conn.php"; 
 
-$classrooms=$pdo->query("select * from `classes`")->fetchAll();
+$classrooms=$pdo->query("SELECT * FROM `classes`")->fetchAll();
 
 echo "<div class='cards-container'>";
 foreach($classrooms as $class):

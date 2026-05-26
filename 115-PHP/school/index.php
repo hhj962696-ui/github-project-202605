@@ -1,3 +1,4 @@
+<?php include_once './include/db_conn.php'; ?>
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -334,97 +335,38 @@
     <!-- 頂部導航欄 -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">
+            <a href="index.php" class="nav-logo">
                 <span>🏫</span>
                 翠園高中
             </a>
             <ul class="nav-links">
-                <li><a href="#about">關於我們</a></li>
-                <li><a href="#news">最新消息</a></li>
-                <li><a href="#contact">聯絡方式</a></li>
+                <li><a href="?#about">關於我們</a></li>
+                <li><a href="?#news">最新消息</a></li>
+                <li><a href="?#contact">聯絡方式</a></li>
             </ul>
             <div class="nav-buttons">
-                <a href="login.php" class="btn-login">登入</a>
-                <a href="register.php" class="btn-register">註冊</a>
+                <?php 
+                if(isset($_SESSION['login'])):
+                ?>
+                    <a href="admin.php" class="btn-login">管理後台</a>
+                <?php else: ?>
+                    <a href="login.php" class="btn-login">登入</a>
+                    <a href="register.php" class="btn-register">註冊</a>
+                <?php endif;?>
             </div>
         </div>
     </nav>
+    <?php 
+    $inc=$_GET['inc']??'main';
+    $file="./front/{$inc}.php";
+    if(file_exists($file)){
+        include $file;
+    }else{
+        include "./front/main.php";
+    }
 
-    <!-- 首頁橫幅 -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>歡迎來到翠園高中</h1>
-            <p>致力於培育社會新鮮人的搖籃</p>
-            <button class="hero-button">瞭解更多</button>
-        </div>
-    </section>
+    ?>
 
-    <!-- 主要內容 -->
-    <div class="main-content">
-        <!-- 特色介紹 -->
-        <section id="about">
-            <h2 class="section-title">校園特色</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-icon">📚</div>
-                    <h3>優質教育</h3>
-                    <p>擁有資深優秀的教師團隊，採用先進的教學方法，為學生提供最優質的教育資源和環境。</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🏆</div>
-                    <h3>全面發展</h3>
-                    <p>除了學術課程外，還提供豐富的藝術、體育和科技課程，培養學生的多元才能。</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🌍</div>
-                    <h3>國際視野</h3>
-                    <p>與多所國外高中建立交流合作關係，為學生打開通往世界的大門。</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">💻</div>
-                    <h3>技術創新</h3>
-                    <p>配備先進的實驗室和電腦設備，致力於培養具有創新能力的未來領袖。</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎓</div>
-                    <h3>升學輔導</h3>
-                    <p>提供專業的升學輔導服務，幫助學生順利進入理想的大學。</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🤝</div>
-                    <h3>溫馨社團</h3>
-                    <p>擁有超過50個社團組織，學生可根據興趣自由參加，豐富校園生活。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 最新消息 -->
-        <section id="news">
-            <h2 class="section-title">最新消息</h2>
-            <div class="news-section">
-                <div class="news-item">
-                    <span class="news-title">🔔 2026年度校運會報名開始</span>
-                    <span class="news-date">2026-05-18</span>
-                </div>
-                <div class="news-item">
-                    <span class="news-title">🏅 應屆畢業生大學錄取成績揭曉</span>
-                    <span class="news-date">2026-05-15</span>
-                </div>
-                <div class="news-item">
-                    <span class="news-title">📖 暑期英文培訓班招生中</span>
-                    <span class="news-date">2026-05-12</span>
-                </div>
-                <div class="news-item">
-                    <span class="news-title">🎭 校園文化藝術節即將開幕</span>
-                    <span class="news-date">2026-05-10</span>
-                </div>
-                <div class="news-item">
-                    <span class="news-title">⚽ 校隊在全國運動會中取得佳績</span>
-                    <span class="news-date">2026-05-08</span>
-                </div>
-            </div>
-        </section>
-    </div>
 
     <!-- 頁腳 -->
     <footer class="footer" id="contact">
